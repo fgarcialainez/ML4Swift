@@ -28,24 +28,40 @@ class ML4Swift
     @lazy var model = Model()
     @lazy var prediction = Prediction()
     
-    init(apiUsername: String, apiKey: String, developmentMode: Bool){
+    init(apiUsername: String, apiKey: String, developmentMode: Bool) {
         DataManager.sharedInstance.initializeWith(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode);
     }
     
-    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?){
+    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
     }
-    
-    func deleteDataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?){
+
+    func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode? {
         return dataSet.deleteDataSetWith(dataSetId: dataSetId)
     }
     
-    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?){
+    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return model.createModelWith(dataSetId: dataSetId, name: name)
     }
     
-    func deleteModelWith(#modelId: String) -> (statusCode: HTTPStatusCode?){
+    func deleteModelWith(#modelId: String) -> HTTPStatusCode? {
         return model.deleteModelWith(modelId: modelId)
+    }
+    
+    func modelIsReadyWith(#modelId: String) -> Bool {
+        return model.modelIsReadyWith(modelId: modelId)
+    }
+    
+    func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
+    }
+    
+    func deletePredictionWith(#predictionId: String) -> HTTPStatusCode? {
+        return prediction.deletePredictionWith(predictionId: predictionId)
+    }
+    
+    func predictionIsReadyWith(#predictionId: String) -> Bool {
+        return prediction.predictionIsReadyWith(predictionId: predictionId)
     }
     
     func printFrameworkData(){

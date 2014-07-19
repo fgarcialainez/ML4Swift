@@ -52,10 +52,20 @@ class Model : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteModelWith(#modelId: String) -> (statusCode: HTTPStatusCode?)
+    func deleteModelWith(#modelId: String) -> HTTPStatusCode?
     {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         
-        return self.deleteResourceWith(urlString)
+        return self.deleteResourceWith(url: urlString)
+    }
+    
+    func modelIsReadyWith(#modelId: String) -> Bool
+    {
+        var ready: Bool = false
+        
+        let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
+        let result = self.resourceWith(url: urlString)
+        
+        return self.resourceIsReadyWith(result: result)
     }
 }

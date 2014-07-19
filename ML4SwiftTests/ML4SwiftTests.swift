@@ -51,6 +51,28 @@ class ML4SwiftTests: XCTestCase
         XCTAssertTrue(resultModel.resourceId != nil, "Error creating Model - Invalid resourceId returned")
         XCTAssertTrue(resultModel.resourceData != nil, "Error creating Model - Invalid resourceData returned")
         
+        // Wait while model is ready
+        while !library.modelIsReadyWith(modelId: resultModel.resourceId!) {
+            sleep(3)
+        }
+        
+        // Create Prediction from Model Identifier
+        let inputDataForPrediction = "{\"000000\": 3, \"000001\": 2, \"000002\": 1, \"000003\": 1}"
+        let resultPrediction = library.createPredictionWith(modelId: resultModel.resourceId!, name: "My Prediction", inputData: inputDataForPrediction)
+        
+        XCTAssertTrue(resultPrediction.statusCode != nil && resultPrediction.statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Prediction - Invalid status code returned")
+        XCTAssertTrue(resultPrediction.resourceId != nil, "Error creating Prediction - Invalid resourceId returned")
+        XCTAssertTrue(resultPrediction.resourceData != nil, "Error creating Prediction - Invalid resourceData returned")
+        
+        while !library.predictionIsReadyWith(predictionId: resultPrediction.resourceId!) {
+            sleep(3)
+        }
+        
+        // Delete Created Prediction
+        let statusDeletePrediction = library.deletePredictionWith(predictionId: resultPrediction.resourceId!)
+        
+        XCTAssertTrue(statusDeletePrediction != nil && statusDeletePrediction == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Prediction")
+        
         // Delete Created Model
         let statusDeleteModel = library.deleteModelWith(modelId: resultModel.resourceId!)
         

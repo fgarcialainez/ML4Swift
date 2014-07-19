@@ -36,4 +36,42 @@ class Prediction : BaseResource
         
         return baseURL
     }
+    
+    func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    {
+        let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
+        var bodyString: String = "{\"model\":\"model/" + modelId + "\""
+        
+        if let nameValue = name {
+            bodyString += ", \"name\":\"" + nameValue + "\""
+        }
+        
+        if let inputDataValue = inputData {
+            bodyString += ", \"input_data\":" + inputDataValue
+        }
+        else {
+            bodyString += ", \"input_data\":{}"
+        }
+        
+        bodyString += "}"
+        
+        return self.createResourceWith(url: urlString, body: bodyString)
+    }
+    
+    func deletePredictionWith(#predictionId: String) -> HTTPStatusCode?
+    {
+        let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
+        
+        return self.deleteResourceWith(url: urlString)
+    }
+    
+    func predictionIsReadyWith(#predictionId: String) -> Bool
+    {
+        var ready: Bool = false
+        
+        let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
+        let result = self.resourceWith(url: urlString)
+        
+        return self.resourceIsReadyWith(result: result)
+    }
 }

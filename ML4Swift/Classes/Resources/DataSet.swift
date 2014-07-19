@@ -52,10 +52,10 @@ class DataSet : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteDataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?)
+    func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode?
     {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         
-        return self.deleteResourceWith(urlString)
+        return self.deleteResourceWith(url: urlString)
     }
 }

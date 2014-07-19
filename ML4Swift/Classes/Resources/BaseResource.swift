@@ -92,7 +92,7 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func updateResourceWith(url: String, body: String?) -> (statusCode: HTTPStatusCode?, data: NSDictionary?)
+    func updateResourceWith(#url: String, body: String?) -> (statusCode: HTTPStatusCode?, data: NSDictionary?)
     {
         var resourceData: NSDictionary?
         
@@ -105,14 +105,14 @@ class BaseResource
         return (result.statusCode, resourceData)
     }
     
-    func deleteResourceWith(url: String) -> (statusCode: HTTPStatusCode?)
+    func deleteResourceWith(#url: String) -> (statusCode: HTTPStatusCode?)
     {
         let result = self.doHttpRequestWith(url: url, method: "DELETE", body: nil)
         
         return (result.statusCode)
     }
     
-    func resourceWith(url: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    func resourceWith(#url: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
     {
         var resourceId: String?
         var resourceData: NSDictionary?
@@ -128,7 +128,7 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func listResourcesWith(url: String) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
+    func listResourcesWith(#url: String) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
     {
         var resourcesData: NSDictionary?
         
@@ -139,5 +139,23 @@ class BaseResource
         }
         
         return (result.statusCode, resourcesData)
+    }
+    
+    func resourceIsReadyWith(#result: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)) -> Bool {
+        var ready: Bool = false;
+        
+        if let statusCodeValue = result.statusCode {
+            if statusCodeValue == HTTPStatusCode.HTTP_OK {
+                if let resourceDataValue = result.resourceData {
+                    let resourceStatus: AnyObject? = resourceDataValue.objectForKey("status")?.objectForKey("code")
+                    
+                    if let resourceStatusValue = resourceStatus?.integerValue {
+                        ready = (resourceStatusValue == ResourceStatusCode.FINISHED.toRaw())
+                    }
+                }
+            }
+        }
+        
+        return ready
     }
 }
