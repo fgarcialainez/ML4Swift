@@ -30,9 +30,9 @@ class BaseResource
      * }
      */
     
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////  UTILITY METHODS  ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //******************************************************************************************
+    //************************************* UTILITY METHODS ************************************
+    //******************************************************************************************
     
     /*!
      * Do generic HTTP request
@@ -72,9 +72,9 @@ class BaseResource
         return resourceId
     }
     
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////  GENERIC HTTP REQUEST METHODS  ///////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //******************************************************************************************
+    //****************************** GENERIC HTTP REQUEST METHODS ******************************
+    //******************************************************************************************
     
     func createResourceWith(#url: String, body: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
     {
@@ -92,7 +92,7 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func updateResourceWith(#url: String, body: String?) -> (statusCode: HTTPStatusCode?, data: NSDictionary?)
+    func updateResourceWith(#url: String, body: String?) -> HTTPStatusCode?
     {
         var resourceData: NSDictionary?
         
@@ -102,14 +102,14 @@ class BaseResource
             resourceData = NSJSONSerialization.JSONObjectWithData(result.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
         }
         
-        return (result.statusCode, resourceData)
+        return result.statusCode
     }
     
-    func deleteResourceWith(#url: String) -> (statusCode: HTTPStatusCode?)
+    func deleteResourceWith(#url: String) -> HTTPStatusCode?
     {
         let result = self.doHttpRequestWith(url: url, method: "DELETE", body: nil)
         
-        return (result.statusCode)
+        return result.statusCode
     }
     
     func resourceWith(#url: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)

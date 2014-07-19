@@ -23,6 +23,10 @@ import Foundation
 
 class DataSource : BaseResource
 {
+    //******************************************************************************************
+    //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
+    //******************************************************************************************
+    
     /*override*/ var resourceBaseURL:String
     {
         var baseURL: String
@@ -36,6 +40,10 @@ class DataSource : BaseResource
         
         return baseURL
     }
+    
+    //******************************************************************************************
+    //************************************ PUBLIC METHODS **************************************
+    //******************************************************************************************
     
     func createDataSourceWith(name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
     {
@@ -73,6 +81,21 @@ class DataSource : BaseResource
         }
         
         return returnData
+    }
+    
+    func updateDataSourceNameWith(#dataSourceId: String, name: String?) -> HTTPStatusCode?
+    {
+        let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
+        var bodyString: String!
+        
+        if let nameValue = name {
+            bodyString = "{\"name\":\"" + nameValue + "\"}"
+        }
+        else {
+            bodyString = ""
+        }
+        
+        return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
     func deleteDataSourceWith(#dataSourceId: String) -> HTTPStatusCode?

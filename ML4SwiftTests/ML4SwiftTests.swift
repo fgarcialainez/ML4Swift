@@ -87,24 +87,35 @@ class ML4SwiftTests: XCTestCase
             sleep(3)
         }
         
+        
+        // Update name of created DataSource, DataSet, Model and Prediction
+        let statusUpdateDataSource = library.updateDataSourceNameWith(dataSourceId: resultDataSource.resourceId!, name: "My DataSource Updated")
+        XCTAssertTrue(statusUpdateDataSource != nil && statusUpdateDataSource == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSource")
+        
+        let statusUpdateDataSet = library.updateDataSetNameWith(dataSetId: resultDataSet.resourceId!, name: "My DataSet Updated")
+        XCTAssertTrue(statusUpdateDataSet != nil && statusUpdateDataSet == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSet")
+        
+        let statusUpdateModel = library.updateModelNameWith(modelId: resultModel.resourceId!, name: "My Model Updated")
+        XCTAssertTrue(statusUpdateModel != nil && statusUpdateModel == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Model")
+        
+        let statusUpdatePrediction = library.updatePredictionNameWith(predictionId: resultPrediction.resourceId!, name: "My Prediction Updated")
+        XCTAssertTrue(statusUpdatePrediction != nil && statusUpdatePrediction == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Prediction")
+        
+        
         // Delete Created Prediction
         let statusDeletePrediction = library.deletePredictionWith(predictionId: resultPrediction.resourceId!)
-        
         XCTAssertTrue(statusDeletePrediction != nil && statusDeletePrediction == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Prediction")
         
         // Delete Created Model
         let statusDeleteModel = library.deleteModelWith(modelId: resultModel.resourceId!)
-        
         XCTAssertTrue(statusDeleteModel != nil && statusDeleteModel == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Model")
         
         // Delete Created DataSet
         let statusDeleteDataSet = library.deleteDataSetWith(dataSetId: resultDataSet.resourceId!)
-        
         XCTAssertTrue(statusDeleteDataSet != nil && statusDeleteDataSet == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSource")
         
         // Delete Created DataSource
         let statusDeleteDataSource = library.deleteDataSourceWith(dataSourceId: resultDataSource.resourceId!)
-        
         XCTAssertTrue(statusDeleteDataSource != nil && statusDeleteDataSource == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSource")
     }
 }

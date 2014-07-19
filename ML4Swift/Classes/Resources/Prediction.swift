@@ -23,6 +23,10 @@ import Foundation
 
 class Prediction : BaseResource
 {
+    //******************************************************************************************
+    //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
+    //******************************************************************************************
+    
     /*override*/ var resourceBaseURL:String
     {
         var baseURL: String
@@ -36,6 +40,10 @@ class Prediction : BaseResource
         
         return baseURL
     }
+    
+    //******************************************************************************************
+    //************************************ PUBLIC METHODS **************************************
+    //******************************************************************************************
     
     func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
     {
@@ -56,6 +64,21 @@ class Prediction : BaseResource
         bodyString += "}"
         
         return self.createResourceWith(url: urlString, body: bodyString)
+    }
+    
+    func updatePredictionNameWith(#predictionId: String, name: String?) -> HTTPStatusCode?
+    {
+        let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
+        var bodyString: String!
+        
+        if let nameValue = name {
+            bodyString = "{\"name\":\"" + nameValue + "\"}"
+        }
+        else {
+            bodyString = ""
+        }
+        
+        return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
     func deletePredictionWith(#predictionId: String) -> HTTPStatusCode?

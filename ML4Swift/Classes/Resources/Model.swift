@@ -23,6 +23,10 @@ import Foundation
 
 class Model : BaseResource
 {
+    //******************************************************************************************
+    //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
+    //******************************************************************************************
+    
     /*override*/ var resourceBaseURL:String
     {
         var baseURL: String
@@ -37,6 +41,10 @@ class Model : BaseResource
         return baseURL
     }
     
+    //******************************************************************************************
+    //************************************ PUBLIC METHODS **************************************
+    //******************************************************************************************
+    
     func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
     {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
@@ -50,6 +58,21 @@ class Model : BaseResource
         }
         
         return self.createResourceWith(url: urlString, body: bodyString)
+    }
+    
+    func updateModelNameWith(#modelId: String, name: String?) -> HTTPStatusCode?
+    {
+        let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
+        var bodyString: String!
+        
+        if let nameValue = name {
+            bodyString = "{\"name\":\"" + nameValue + "\"}"
+        }
+        else {
+            bodyString = ""
+        }
+        
+        return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
     func deleteModelWith(#modelId: String) -> HTTPStatusCode?

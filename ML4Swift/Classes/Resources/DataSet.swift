@@ -23,6 +23,10 @@ import Foundation
 
 class DataSet : BaseResource
 {
+    //******************************************************************************************
+    //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
+    //******************************************************************************************
+    
     /*override*/ var resourceBaseURL:String
     {
         var baseURL: String
@@ -37,6 +41,10 @@ class DataSet : BaseResource
         return baseURL
     }
     
+    //******************************************************************************************
+    //************************************ PUBLIC METHODS **************************************
+    //******************************************************************************************
+    
     func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
     {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
@@ -50,6 +58,21 @@ class DataSet : BaseResource
         }
         
         return self.createResourceWith(url: urlString, body: bodyString)
+    }
+    
+    func updateDataSetNameWith(#dataSetId: String, name: String?) -> HTTPStatusCode?
+    {
+        let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
+        var bodyString: String!
+        
+        if let nameValue = name {
+            bodyString = "{\"name\":\"" + nameValue + "\"}"
+        }
+        else {
+            bodyString = ""
+        }
+        
+        return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
     func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode?

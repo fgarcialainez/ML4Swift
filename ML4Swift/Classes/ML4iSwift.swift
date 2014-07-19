@@ -32,8 +32,28 @@ class ML4Swift
         DataManager.sharedInstance.initializeWith(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode);
     }
     
+    func printFrameworkData(){
+        println()
+        
+        DataManager.sharedInstance.printCredentials()
+        
+        println("DataSource Base URL: " + self.dataSource.resourceBaseURL)
+        println("DataSet Base URL: " + self.dataSet.resourceBaseURL)
+        println("Model Base URL: " + self.model.resourceBaseURL)
+        println("Prediction Base URL: " + self.prediction.resourceBaseURL)
+    }
+    
+    //******************************************************************************************
+    //************************************** SOURCES *******************************************
+    //************************ https://bigml.com/developers/sources ****************************
+    //******************************************************************************************
+    
     func createDataSourceWith(name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return dataSource.createDataSourceWith(name, filePath: filePath)
+    }
+    
+    func updateDataSourceNameWith(#dataSourceId: String, name: String?) -> HTTPStatusCode? {
+        return dataSource.updateDataSourceNameWith(dataSourceId: dataSourceId, name: name)
     }
     
     func deleteDataSourceWith(#dataSourceId: String) -> HTTPStatusCode? {
@@ -44,8 +64,17 @@ class ML4Swift
         return dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
     }
     
+    //******************************************************************************************
+    //************************************** DATASETS ******************************************
+    //************************ https://bigml.com/developers/datasets ***************************
+    //******************************************************************************************
+    
     func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
+    }
+    
+    func updateDataSetNameWith(#dataSetId: String, name: String?) -> HTTPStatusCode? {
+        return dataSet.updateDataSetNameWith(dataSetId: dataSetId, name: name)
     }
 
     func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode? {
@@ -56,8 +85,17 @@ class ML4Swift
         return dataSet.dataSetIsReadyWith(dataSetId: dataSetId)
     }
     
+    //******************************************************************************************
+    //*************************************** MODELS *******************************************
+    //************************* https://bigml.com/developers/models ****************************
+    //******************************************************************************************
+    
     func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return model.createModelWith(dataSetId: dataSetId, name: name)
+    }
+    
+    func updateModelNameWith(#modelId: String, name: String?) -> HTTPStatusCode? {
+        return model.updateModelNameWith(modelId: modelId, name: name)
     }
     
     func deleteModelWith(#modelId: String) -> HTTPStatusCode? {
@@ -68,8 +106,17 @@ class ML4Swift
         return model.modelIsReadyWith(modelId: modelId)
     }
     
+    //******************************************************************************************
+    //************************************* PREDICTIONS ****************************************
+    //*********************** https://bigml.com/developers/predictions *************************
+    //******************************************************************************************
+    
     func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
+    }
+    
+    func updatePredictionNameWith(#predictionId: String, name: String?) -> HTTPStatusCode? {
+        return prediction.updatePredictionNameWith(predictionId: predictionId, name: name)
     }
     
     func deletePredictionWith(#predictionId: String) -> HTTPStatusCode? {
@@ -78,16 +125,5 @@ class ML4Swift
     
     func predictionIsReadyWith(#predictionId: String) -> Bool {
         return prediction.predictionIsReadyWith(predictionId: predictionId)
-    }
-    
-    func printFrameworkData(){
-        println()
-        
-        DataManager.sharedInstance.printCredentials()
-        
-        println("DataSource Base URL: " + self.dataSource.resourceBaseURL)
-        println("DataSet Base URL: " + self.dataSet.resourceBaseURL)
-        println("Model Base URL: " + self.model.resourceBaseURL)
-        println("Prediction Base URL: " + self.prediction.resourceBaseURL)
     }
 }
