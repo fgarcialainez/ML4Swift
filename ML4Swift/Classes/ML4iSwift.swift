@@ -32,12 +32,28 @@ class ML4Swift
         DataManager.sharedInstance.initializeWith(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode);
     }
     
+    func createDataSourceWith(name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return dataSource.createDataSourceWith(name, filePath: filePath)
+    }
+    
+    func deleteDataSourceWith(#dataSourceId: String) -> HTTPStatusCode? {
+        return dataSource.deleteDataSourceWith(dataSourceId: dataSourceId)
+    }
+    
+    func dataSourceIsReadyWith(#dataSourceId: String) -> Bool {
+        return dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
+    }
+    
     func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
     }
 
     func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode? {
         return dataSet.deleteDataSetWith(dataSetId: dataSetId)
+    }
+    
+    func dataSetIsReadyWith(#dataSetId: String) -> Bool {
+        return dataSet.dataSetIsReadyWith(dataSetId: dataSetId)
     }
     
     func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {

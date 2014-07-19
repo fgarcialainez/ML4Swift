@@ -37,7 +37,7 @@ class BaseResource
     /*!
      * Do generic HTTP request
      */
-    func doHttpRequestWith(#url: String, method: String, body: String?) -> (statusCode: HTTPStatusCode?, data: NSData?)
+    func doHttpRequestWith(#url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?)
     {
         var statusCode: HTTPStatusCode?
         
@@ -46,7 +46,7 @@ class BaseResource
         
         var request = NSMutableURLRequest(URL: NSURL.URLWithString(url))
         request.HTTPMethod = method
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(contentType, forHTTPHeaderField: "Content-Type")
         request.HTTPBody = body?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         
         let responseData = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)

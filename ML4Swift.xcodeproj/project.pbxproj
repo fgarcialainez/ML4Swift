@@ -26,6 +26,7 @@
 		DCE8A7EB197222900029DB67 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364C19721DDB00EC5B79 /* DataSource.swift */; };
 		DCE8A7EC197222900029DB67 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364D19721DDB00EC5B79 /* Model.swift */; };
 		DCE8A7ED197222900029DB67 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364E19721DDB00EC5B79 /* Prediction.swift */; };
+		DCF33A5B197A907100F4FE56 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = DCF33A5A197A907100F4FE56 /* iris.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,20 @@
 			remoteInfo = ML4Swift;
 		};
 		DC887232197194F2004E9F06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC88720119719415004E9F06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC88720919719415004E9F06;
+			remoteInfo = ML4Swift;
+		};
+		DCF33A5C197A908200F4FE56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC88720119719415004E9F06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC88720919719415004E9F06;
+			remoteInfo = ML4Swift;
+		};
+		DCF33A5E197A908200F4FE56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DC88720119719415004E9F06 /* Project object */;
 			proxyType = 1;
@@ -60,6 +75,7 @@
 		DC88722C19719494004E9F06 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Classes/Constants.swift; sourceTree = "<group>"; };
 		DC88722D19719494004E9F06 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Classes/DataManager.swift; sourceTree = "<group>"; };
 		DC88722E19719494004E9F06 /* ML4iSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ML4iSwift.swift; path = Classes/ML4iSwift.swift; sourceTree = "<group>"; };
+		DCF33A5A197A907100F4FE56 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +145,7 @@
 		DC88721A19719415004E9F06 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DCF33A5A197A907100F4FE56 /* iris.csv */,
 				DC88721B19719415004E9F06 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -202,6 +219,8 @@
 			dependencies = (
 				DC88721819719415004E9F06 /* PBXTargetDependency */,
 				DC887233197194F2004E9F06 /* PBXTargetDependency */,
+				DCF33A5D197A908200F4FE56 /* PBXTargetDependency */,
+				DCF33A5F197A908200F4FE56 /* PBXTargetDependency */,
 			);
 			name = ML4SwiftTests;
 			productName = ML4SwiftTests;
@@ -256,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCF33A5B197A907100F4FE56 /* iris.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +325,16 @@
 			isa = PBXTargetDependency;
 			target = DC88720919719415004E9F06 /* ML4Swift */;
 			targetProxy = DC887232197194F2004E9F06 /* PBXContainerItemProxy */;
+		};
+		DCF33A5D197A908200F4FE56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC88720919719415004E9F06 /* ML4Swift */;
+			targetProxy = DCF33A5C197A908200F4FE56 /* PBXContainerItemProxy */;
+		};
+		DCF33A5F197A908200F4FE56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC88720919719415004E9F06 /* ML4Swift */;
+			targetProxy = DCF33A5E197A908200F4FE56 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

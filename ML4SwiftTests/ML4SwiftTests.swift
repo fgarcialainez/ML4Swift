@@ -37,12 +37,30 @@ class ML4SwiftTests: XCTestCase
     
     func testML4Swift()
     {
+        // Create DataSource from iris.csv
+        let path = NSBundle(forClass: ML4SwiftTests.self).pathForResource("iris", ofType: "csv")
+        let resultDataSource = library.createDataSourceWith("My DataSource", filePath: path)
+        
+        XCTAssertTrue(resultDataSource.statusCode != nil && resultDataSource.statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSource - Invalid status code returned")
+        XCTAssertTrue(resultDataSource.resourceId != nil, "Error creating DataSource - Invalid resourceId returned")
+        XCTAssertTrue(resultDataSource.resourceData != nil, "Error creating DataSource - Invalid resourceData returned")
+        
+        // Wait while DataSource is ready
+        while !library.dataSourceIsReadyWith(dataSourceId: resultDataSource.resourceId!) {
+            sleep(3)
+        }
+        
         // Create DataSet from DataSource Identifier
-        let resultDataSet = library.createDataSetWith(dataSourceId: "53c11f93ffa0442f660099f2", name: "My DataSet")
+        let resultDataSet = library.createDataSetWith(dataSourceId: resultDataSource.resourceId!, name: "My DataSet")
         
         XCTAssertTrue(resultDataSet.statusCode != nil && resultDataSet.statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSet - Invalid status code returned")
         XCTAssertTrue(resultDataSet.resourceId != nil, "Error creating DataSet - Invalid resourceId returned")
         XCTAssertTrue(resultDataSet.resourceData != nil, "Error creating DataSet - Invalid resourceData returned")
+        
+        // Wait while DataSet is ready
+        while !library.dataSetIsReadyWith(dataSetId: resultDataSet.resourceId!) {
+            sleep(3)
+        }
         
         // Create Model from DataSet Identifier
         let resultModel = library.createModelWith(dataSetId: resultDataSet.resourceId!, name: "My Model")
@@ -51,7 +69,7 @@ class ML4SwiftTests: XCTestCase
         XCTAssertTrue(resultModel.resourceId != nil, "Error creating Model - Invalid resourceId returned")
         XCTAssertTrue(resultModel.resourceData != nil, "Error creating Model - Invalid resourceData returned")
         
-        // Wait while model is ready
+        // Wait while Model is ready
         while !library.modelIsReadyWith(modelId: resultModel.resourceId!) {
             sleep(3)
         }
@@ -64,6 +82,7 @@ class ML4SwiftTests: XCTestCase
         XCTAssertTrue(resultPrediction.resourceId != nil, "Error creating Prediction - Invalid resourceId returned")
         XCTAssertTrue(resultPrediction.resourceData != nil, "Error creating Prediction - Invalid resourceData returned")
         
+        // Wait while Prediction is ready
         while !library.predictionIsReadyWith(predictionId: resultPrediction.resourceId!) {
             sleep(3)
         }
@@ -81,6 +100,11 @@ class ML4SwiftTests: XCTestCase
         // Delete Created DataSet
         let statusDeleteDataSet = library.deleteDataSetWith(dataSetId: resultDataSet.resourceId!)
         
-        XCTAssertTrue(statusDeleteDataSet != nil && statusDeleteDataSet == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSet")
+        XCTAssertTrue(statusDeleteDataSet != nil && statusDeleteDataSet == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSource")
+        
+        // Delete Created DataSource
+        let statusDeleteDataSource = library.deleteDataSourceWith(dataSourceId: resultDataSource.resourceId!)
+        
+        XCTAssertTrue(statusDeleteDataSource != nil && statusDeleteDataSource == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSource")
     }
 }
