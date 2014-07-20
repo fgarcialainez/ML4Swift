@@ -37,6 +37,10 @@ class ML4SwiftTests: XCTestCase
     
     func testML4Swift()
     {
+        //******************************************************************************************
+        //************************************** CREATE METHODS ************************************
+        //******************************************************************************************
+        
         // Create DataSource from iris.csv
         let path = NSBundle(forClass: ML4SwiftTests.self).pathForResource("iris", ofType: "csv")
         let resultDataSource = library.createDataSourceWith("My DataSource", filePath: path)
@@ -87,20 +91,61 @@ class ML4SwiftTests: XCTestCase
             sleep(3)
         }
         
+        //******************************************************************************************
+        //************************************ GET RESOURCE METHODS ********************************
+        //******************************************************************************************
         
-        // Update name of created DataSource, DataSet, Model and Prediction
+        // Retrieve created DataSource
+        let retrievedDataSource = library.dataSourceWith(dataSourceId: resultDataSource.resourceId!)
+        
+        XCTAssertTrue(retrievedDataSource.statusCode != nil && retrievedDataSource.statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving DataSource - Invalid status code returned")
+        XCTAssertTrue(retrievedDataSource.resourceId != nil, "Error retrieving DataSource - Invalid resourceId returned")
+        XCTAssertTrue(retrievedDataSource.resourceData != nil, "Error retrieving DataSource - Invalid resourceData returned")
+        
+        // Retrieve created DataSet
+        let retrievedDataSet = library.dataSetWith(dataSetId: resultDataSet.resourceId!)
+        
+        XCTAssertTrue(retrievedDataSet.statusCode != nil && retrievedDataSet.statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving DataSet - Invalid status code returned")
+        XCTAssertTrue(retrievedDataSet.resourceId != nil, "Error retrieving DataSet - Invalid resourceId returned")
+        XCTAssertTrue(retrievedDataSet.resourceData != nil, "Error retrieving DataSet - Invalid resourceData returned")
+        
+        // Retrieve created Model
+        let retrievedModel = library.modelWith(modelId: resultModel.resourceId!)
+        
+        XCTAssertTrue(retrievedModel.statusCode != nil && retrievedModel.statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Model - Invalid status code returned")
+        XCTAssertTrue(retrievedModel.resourceId != nil, "Error retrieving Model - Invalid resourceId returned")
+        XCTAssertTrue(retrievedModel.resourceData != nil, "Error retrieving Model - Invalid resourceData returned")
+        
+        // Retrieve created Prediction
+        let retrievedPrediction = library.predictionWith(predictionId: resultPrediction.resourceId!)
+        
+        XCTAssertTrue(retrievedPrediction.statusCode != nil && retrievedPrediction.statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Prediction - Invalid status code returned")
+        XCTAssertTrue(retrievedPrediction.resourceId != nil, "Error retrieving Prediction - Invalid resourceId returned")
+        XCTAssertTrue(retrievedPrediction.resourceData != nil, "Error retrieving Prediction - Invalid resourceData returned")
+        
+        //******************************************************************************************
+        //*************************************** UPDATE METHODS ***********************************
+        //******************************************************************************************
+        
+        // Update DataSource name
         let statusUpdateDataSource = library.updateDataSourceNameWith(dataSourceId: resultDataSource.resourceId!, name: "My DataSource Updated")
         XCTAssertTrue(statusUpdateDataSource != nil && statusUpdateDataSource == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSource")
         
+        // Update DataSet name
         let statusUpdateDataSet = library.updateDataSetNameWith(dataSetId: resultDataSet.resourceId!, name: "My DataSet Updated")
         XCTAssertTrue(statusUpdateDataSet != nil && statusUpdateDataSet == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSet")
         
+        // Update Model name
         let statusUpdateModel = library.updateModelNameWith(modelId: resultModel.resourceId!, name: "My Model Updated")
         XCTAssertTrue(statusUpdateModel != nil && statusUpdateModel == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Model")
         
+        // Update Prediction name
         let statusUpdatePrediction = library.updatePredictionNameWith(predictionId: resultPrediction.resourceId!, name: "My Prediction Updated")
         XCTAssertTrue(statusUpdatePrediction != nil && statusUpdatePrediction == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Prediction")
         
+        //******************************************************************************************
+        //*************************************** DELETE METHODS ***********************************
+        //******************************************************************************************
         
         // Delete Created Prediction
         let statusDeletePrediction = library.deletePredictionWith(predictionId: resultPrediction.resourceId!)

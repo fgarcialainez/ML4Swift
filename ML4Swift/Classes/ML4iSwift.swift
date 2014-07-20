@@ -60,6 +60,10 @@ class ML4Swift
         return dataSource.deleteDataSourceWith(dataSourceId: dataSourceId)
     }
     
+    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return dataSource.dataSourceWith(dataSourceId: dataSourceId)
+    }
+    
     func dataSourceIsReadyWith(#dataSourceId: String) -> Bool {
         return dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
     }
@@ -79,6 +83,10 @@ class ML4Swift
 
     func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode? {
         return dataSet.deleteDataSetWith(dataSetId: dataSetId)
+    }
+    
+    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return dataSet.dataSetWith(dataSetId: dataSetId)
     }
     
     func dataSetIsReadyWith(#dataSetId: String) -> Bool {
@@ -102,6 +110,10 @@ class ML4Swift
         return model.deleteModelWith(modelId: modelId)
     }
     
+    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return model.modelWith(modelId: modelId)
+    }
+    
     func modelIsReadyWith(#modelId: String) -> Bool {
         return model.modelIsReadyWith(modelId: modelId)
     }
@@ -121,6 +133,10 @@ class ML4Swift
     
     func deletePredictionWith(#predictionId: String) -> HTTPStatusCode? {
         return prediction.deletePredictionWith(predictionId: predictionId)
+    }
+    
+    func predictionWith(#predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return prediction.predictionWith(predictionId: predictionId)
     }
     
     func predictionIsReadyWith(#predictionId: String) -> Bool {

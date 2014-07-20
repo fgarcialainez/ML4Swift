@@ -105,6 +105,13 @@ class DataSource : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
+    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    {
+        let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
+        
+        return self.resourceWith(url: urlString)
+    }
+    
     func dataSourceIsReadyWith(#dataSourceId: String) -> Bool
     {
         var ready: Bool = false

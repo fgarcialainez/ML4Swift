@@ -82,6 +82,13 @@ class DataSet : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
+    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    {
+        let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
+        
+        return self.resourceWith(url: urlString)
+    }
+    
     func dataSetIsReadyWith(#dataSetId: String) -> Bool
     {
         var ready: Bool = false

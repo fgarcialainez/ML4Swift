@@ -82,6 +82,13 @@ class Model : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
+    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    {
+        let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
+        
+        return self.resourceWith(url: urlString)
+    }
+    
     func modelIsReadyWith(#modelId: String) -> Bool
     {
         var ready: Bool = false

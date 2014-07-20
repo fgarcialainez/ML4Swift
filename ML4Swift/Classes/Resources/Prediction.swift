@@ -88,6 +88,13 @@ class Prediction : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
+    func predictionWith(#predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    {
+        let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
+        
+        return self.resourceWith(url: urlString)
+    }
+    
     func predictionIsReadyWith(#predictionId: String) -> Bool
     {
         var ready: Bool = false
