@@ -124,6 +124,34 @@ class ML4SwiftTests: XCTestCase
         XCTAssertTrue(retrievedPrediction.resourceData != nil, "Error retrieving Prediction - Invalid resourceData returned")
         
         //******************************************************************************************
+        //********************************* SEARCH RESOURCES METHODS *******************************
+        //******************************************************************************************
+        
+        // Search for DataSources
+        let dataSources = library.searchDataSourcesBy(name: "My DataSource", offset: 0, limit: 15)
+        
+        XCTAssertTrue(dataSources.statusCode != nil && dataSources.statusCode == HTTPStatusCode.HTTP_OK, "Error searching for DataSources - Invalid status code returned")
+        XCTAssertTrue(dataSources.resourcesData != nil, "Error searching for DataSources - Invalid resourceData returned")
+        
+        // Search for DataSets
+        let dataSets = library.searchDataSourcesBy(name: "My DataSet", offset: 0, limit: 15)
+        
+        XCTAssertTrue(dataSets.statusCode != nil && dataSets.statusCode == HTTPStatusCode.HTTP_OK, "Error searching for DataSets - Invalid status code returned")
+        XCTAssertTrue(dataSets.resourcesData != nil, "Error searching for DataSets - Invalid resourceData returned")
+        
+        // Search for Models
+        let models = library.searchDataSourcesBy(name: "My Model", offset: 0, limit: 15)
+        
+        XCTAssertTrue(models.statusCode != nil && models.statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Models - Invalid status code returned")
+        XCTAssertTrue(models.resourcesData != nil, "Error searching for Models - Invalid resourceData returned")
+        
+        // Search for Predictions
+        let predictions = library.searchDataSourcesBy(name: "My Prediction", offset: 0, limit: 15)
+        
+        XCTAssertTrue(predictions.statusCode != nil && predictions.statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Predictions - Invalid status code returned")
+        XCTAssertTrue(predictions.resourcesData != nil, "Error searching for Predictions - Invalid resourceData returned")
+        
+        //******************************************************************************************
         //*************************************** UPDATE METHODS ***********************************
         //******************************************************************************************
         

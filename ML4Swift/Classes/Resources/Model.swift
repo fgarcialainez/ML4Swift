@@ -89,6 +89,25 @@ class Model : BaseResource
         return self.resourceWith(url: urlString)
     }
     
+    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
+    {
+        var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
+        
+        if let nameValue = name {
+            urlString += "name=" + nameValue.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) + ";"
+        }
+        
+        if offset > 0 {
+            urlString += "offset=" + String(offset) + ";"
+        }
+        
+        if limit > 0 {
+            urlString += "limit=" + String(limit) + ";"
+        }
+        
+        return self.listResourcesWith(url: urlString)
+    }
+    
     func modelIsReadyWith(#modelId: String) -> Bool
     {
         var ready: Bool = false

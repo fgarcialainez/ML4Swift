@@ -64,6 +64,10 @@ class ML4Swift
         return dataSource.dataSourceWith(dataSourceId: dataSourceId)
     }
     
+    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+        return dataSource.searchDataSourcesBy(name: name, offset: offset, limit: limit)
+    }
+    
     func dataSourceIsReadyWith(#dataSourceId: String) -> Bool {
         return dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
     }
@@ -87,6 +91,10 @@ class ML4Swift
     
     func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return dataSet.dataSetWith(dataSetId: dataSetId)
+    }
+    
+    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+        return dataSet.searchDataSetsBy(name: name, offset: offset, limit: limit)
     }
     
     func dataSetIsReadyWith(#dataSetId: String) -> Bool {
@@ -114,6 +122,10 @@ class ML4Swift
         return model.modelWith(modelId: modelId)
     }
     
+    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+        return model.searchModelsBy(name: name, offset: offset, limit: limit)
+    }
+    
     func modelIsReadyWith(#modelId: String) -> Bool {
         return model.modelIsReadyWith(modelId: modelId)
     }
@@ -137,6 +149,10 @@ class ML4Swift
     
     func predictionWith(#predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return prediction.predictionWith(predictionId: predictionId)
+    }
+    
+    func searchPredictionsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+        return prediction.searchPredictionsBy(name: name, offset: offset, limit: limit)
     }
     
     func predictionIsReadyWith(#predictionId: String) -> Bool {

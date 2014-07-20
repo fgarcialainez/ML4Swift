@@ -95,6 +95,25 @@ class Prediction : BaseResource
         return self.resourceWith(url: urlString)
     }
     
+    func searchPredictionsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
+    {
+        var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
+        
+        if let nameValue = name {
+            urlString += "name=" + nameValue.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) + ";"
+        }
+        
+        if offset > 0 {
+            urlString += "offset=" + String(offset) + ";"
+        }
+        
+        if limit > 0 {
+            urlString += "limit=" + String(limit) + ";"
+        }
+        
+        return self.listResourcesWith(url: urlString)
+    }
+    
     func predictionIsReadyWith(#predictionId: String) -> Bool
     {
         var ready: Bool = false
