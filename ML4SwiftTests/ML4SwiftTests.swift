@@ -237,9 +237,9 @@ class ML4SwiftTests: XCTestCase, ML4SwiftDelegate
     }
     
     func testML4SwiftAsyncOperations() {
-        // Create DataSource from iris.csv
+        // Create DataSource Async from iris.csv
         let path = NSBundle(forClass: ML4SwiftTests.self).pathForResource("iris", ofType: "csv")
-        self.library.createDataSourceAsyncWith(name: "My DataSource", filePath: path)
+        self.library.asyncCreateDataSourceWith(name: "My DataSource", filePath: path)
         
         self.waitForAsyncOperation()
         
@@ -250,10 +250,45 @@ class ML4SwiftTests: XCTestCase, ML4SwiftDelegate
                 sleep(3)
             }
             
-            // Create DataSet from DataSource Identifier
-            self.library.createDataSetAsyncWith(dataSourceId: dataSourceIdValue, name: "My DataSet")
+            // Create DataSet Async from DataSource Identifier
+            self.library.asyncCreateDataSetWith(dataSourceId: dataSourceIdValue, name: "My DataSet")
             
             self.waitForAsyncOperation()
+            
+            // Optional Binding
+            if let dataSetIdValue = self.resultDataSetIdAsync {
+                // Wait while DataSet is ready
+                while !self.library.dataSetIsReadyWith(dataSetId: dataSetIdValue) {
+                    sleep(3)
+                }
+                
+                // Create Model Async from DataSet Identifier
+                self.library.asyncCreateModelWith(dataSetId: dataSetIdValue, name: "My Model")
+                
+                self.waitForAsyncOperation()
+                
+                // Optional Binding
+                if let modelIdValue = self.resultModelIdAsync {
+                    // Wait while Model is ready
+                    while !self.library.modelIsReadyWith(modelId: modelIdValue) {
+                        sleep(3)
+                    }
+                    
+                    // Create Prediction Async from Model Identifier
+                    let inputDataForPrediction = "{\"000000\": 3, \"000001\": 2, \"000002\": 1, \"000003\": 1}"
+                    self.library.asyncCreatePredictionWith(modelId: modelIdValue, name: "My Prediction", inputData: inputDataForPrediction)
+                    
+                    self.waitForAsyncOperation()
+                    
+                    // Optional Binding
+                    if let predictionIdValue = self.resultPredictionIdAsync {
+                        // Wait while Prediction is ready
+                        while !self.library.predictionIsReadyWith(predictionId: predictionIdValue) {
+                            sleep(3)
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -261,17 +296,17 @@ class ML4SwiftTests: XCTestCase, ML4SwiftDelegate
     //************************************* ML4SwiftDelegate ***********************************
     //******************************************************************************************
     
-    func dataSourceCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSourceCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSource - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating DataSource - Invalid resourceId returned")
-        XCTAssertTrue(resourceData != nil, "Error creating DataSource - Invalid resourceData returned")
+        XCTAssertTrue(dataSourceData != nil, "Error creating DataSource - Invalid resourceData returned")
         
         self.resultDataSourceIdAsync = resourceId
         
         self.signalForAsyncOperation()
     }
     
-    func dataSourceUpdateWith(#statusCode: HTTPStatusCode?) {
+    func dataSourceUpdatedWith(#statusCode: HTTPStatusCode?) {
         
     }
     
@@ -279,11 +314,11 @@ class ML4SwiftTests: XCTestCase, ML4SwiftDelegate
         
     }
     
-    func dataSourceRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSourceRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         
     }
     
-    func dataSourcesRetrievedWith(#statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func dataSourcesRetrievedWith(#statusCode: HTTPStatusCode?, dataSourcesData: NSDictionary?) {
         
     }
     
@@ -291,17 +326,17 @@ class ML4SwiftTests: XCTestCase, ML4SwiftDelegate
         
     }
     
-    func dataSetCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSetCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSet - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating DataSet - Invalid resourceId returned")
-        XCTAssertTrue(resourceData != nil, "Error creating DataSet - Invalid resourceData returned")
+        XCTAssertTrue(dataSetData != nil, "Error creating DataSet - Invalid resourceData returned")
         
         self.resultDataSetIdAsync = resourceId
         
         self.signalForAsyncOperation()
     }
     
-    func dataSetUpdateWith(#statusCode: HTTPStatusCode?) {
+    func dataSetUpdatedWith(#statusCode: HTTPStatusCode?) {
         
     }
     
@@ -309,15 +344,75 @@ class ML4SwiftTests: XCTestCase, ML4SwiftDelegate
         
     }
     
-    func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         
     }
     
-    func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func dataSetsRetrievedWith(#statusCode: HTTPStatusCode?, dataSetsData: NSDictionary?) {
         
     }
     
     func dataSetIsReadyWith(#status: Bool) {
+        
+    }
+    
+    func modelCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Model - Invalid status code returned")
+        XCTAssertTrue(resourceId != nil, "Error creating Model - Invalid resourceId returned")
+        XCTAssertTrue(modelData != nil, "Error creating Model - Invalid resourceData returned")
+        
+        self.resultModelIdAsync = resourceId
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func modelUpdatedWith(#statusCode: HTTPStatusCode?) {
+        
+    }
+    
+    func modelDeletedWith(#statusCode: HTTPStatusCode?) {
+        
+    }
+    
+    func modelRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
+        
+    }
+    
+    func modelsRetrievedWith(#statusCode: HTTPStatusCode?, modelsData: NSDictionary?) {
+        
+    }
+    
+    func modelIsReadyWith(#status: Bool) {
+        
+    }
+    
+    func predictionCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Prediction - Invalid status code returned")
+        XCTAssertTrue(resourceId != nil, "Error creating Prediction - Invalid resourceId returned")
+        XCTAssertTrue(predictionData != nil, "Error creating Prediction - Invalid resourceData returned")
+        
+        self.resultPredictionIdAsync = resourceId
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func predictionUpdatedWith(#statusCode: HTTPStatusCode?) {
+        
+    }
+    
+    func predictionDeletedWith(#statusCode: HTTPStatusCode?) {
+        
+    }
+    
+    func predictionRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
+        
+    }
+    
+    func predictionsRetrievedWith(#statusCode: HTTPStatusCode?, predictionsData: NSDictionary?) {
+        
+    }
+    
+    func predictionIsReadyWith(#status: Bool) {
         
     }
 }

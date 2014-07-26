@@ -75,16 +75,12 @@ class ML4Swift
     //************************ https://bigml.com/developers/sources ****************************
     //******************************************************************************************
     
+    /**
+     * SYNCHRONOUS OPERATIONS
+     */
+    
     func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return self.dataSource.createDataSourceWith(name: name, filePath: filePath)
-    }
-    
-    func createDataSourceAsyncWith(#name: String, filePath: String) {
-        self.operationQueue.addOperationWithBlock({
-            let result = self.dataSource.createDataSourceWith(name: name, filePath: filePath)
-            
-            self.delegate?.dataSourceCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, resourceData: result.resourceData)
-        })
     }
     
     func updateDataSourceNameWith(#dataSourceId: String, name: String?) -> HTTPStatusCode? {
@@ -107,21 +103,71 @@ class ML4Swift
         return self.dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
     }
     
+    /**
+     * ASYNCHRONOUS OPERATIONS
+     */
+    
+    func asyncCreateDataSourceWith(#name: String, filePath: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.createDataSourceWith(name: name, filePath: filePath)
+            
+            self.delegate?.dataSourceCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSourceData: result.resourceData)
+        })
+    }
+    
+    func asyncUpdateDataSourceNameWith(#dataSourceId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.updateDataSourceNameWith(dataSourceId: dataSourceId, name: name)
+            
+            self.delegate?.dataSourceUpdatedWith(statusCode: result)
+        })
+    }
+    
+    func asyncDeleteDataSourceWith(#dataSourceId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.deleteDataSourceWith(dataSourceId: dataSourceId)
+            
+            self.delegate?.dataSourceDeletedWith(statusCode: result)
+        })
+    }
+    
+    func asyncDataSourceWith(#dataSourceId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.dataSourceWith(dataSourceId: dataSourceId)
+            
+            self.delegate?.dataSourceRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSourceData: result.resourceData)
+        })
+    }
+    
+    func asyncDataSourcesBy(#name: String?, offset: Int, limit: Int) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.searchDataSourcesBy(name: name, offset: offset, limit: limit)
+            
+            self.delegate?.dataSourcesRetrievedWith(statusCode: result.statusCode, dataSourcesData: result.resourcesData)
+        })
+    }
+    
+    func asyncDataSourceIsReadyWith(#dataSourceId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
+            
+            self.delegate?.dataSourceIsReadyWith(status: result)
+        })
+        
+        return
+    }
+    
     //******************************************************************************************
     //************************************** DATASETS ******************************************
     //************************ https://bigml.com/developers/datasets ***************************
     //******************************************************************************************
     
+    /**
+     * SYNCHRONOUS OPERATIONS
+     */
+    
     func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
-    }
-    
-    func createDataSetAsyncWith(#dataSourceId: String, name: String?) {
-        self.operationQueue.addOperationWithBlock({
-            let result = self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
-            
-            self.delegate?.dataSetCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, resourceData: result.resourceData)
-        })
     }
     
     func updateDataSetNameWith(#dataSetId: String, name: String?) -> HTTPStatusCode? {
@@ -144,10 +190,67 @@ class ML4Swift
         return self.dataSet.dataSetIsReadyWith(dataSetId: dataSetId)
     }
     
+    /**
+     * ASYNCHRONOUS OPERATIONS
+     */
+    
+    func asyncCreateDataSetWith(#dataSourceId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
+            
+            self.delegate?.dataSetCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSetData: result.resourceData)
+        })
+    }
+    
+    func asyncUpdateDataSetNameWith(#dataSetId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.updateDataSetNameWith(dataSetId: dataSetId, name: name)
+            
+            self.delegate?.dataSetUpdatedWith(statusCode: result)
+        })
+    }
+    
+    func asyncDeleteDataSetWith(#dataSetId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.deleteDataSetWith(dataSetId: dataSetId)
+            
+            self.delegate?.dataSetDeletedWith(statusCode: result)
+        })
+    }
+    
+    func asyncDataSetAsyncWith(#dataSetId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.dataSetWith(dataSetId: dataSetId)
+            
+            self.delegate?.dataSetRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSetData: result.resourceData)
+        })
+    }
+    
+    func asyncSearchDataSetsBy(#name: String?, offset: Int, limit: Int) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.searchDataSetsBy(name: name, offset: offset, limit: limit)
+            
+            self.delegate?.dataSetsRetrievedWith(statusCode: result.statusCode, dataSetsData: result.resourcesData)
+        
+        })
+    }
+    
+    func asyncDataSetIsReadyWith(#dataSetId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.dataSetIsReadyWith(dataSetId: dataSetId)
+            
+            self.delegate?.dataSetIsReadyWith(status: result)
+        })
+    }
+    
     //******************************************************************************************
     //*************************************** MODELS *******************************************
     //************************* https://bigml.com/developers/models ****************************
     //******************************************************************************************
+    
+    /**
+     * SYNCHRONOUS OPERATIONS
+     */
     
     func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return self.model.createModelWith(dataSetId: dataSetId, name: name)
@@ -173,10 +276,66 @@ class ML4Swift
         return self.model.modelIsReadyWith(modelId: modelId)
     }
     
+    /**
+     * ASYNCHRONOUS OPERATIONS
+     */
+    
+    func asyncCreateModelWith(#dataSetId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.model.createModelWith(dataSetId: dataSetId, name: name)
+            
+            self.delegate?.modelCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.resourceData)
+        })
+    }
+    
+    func asyncUpdateModelNameWith(#modelId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.model.updateModelNameWith(modelId: modelId, name: name)
+            
+            self.delegate?.modelUpdatedWith(statusCode: result)
+        })
+    }
+    
+    func asyncDeleteModelWith(#modelId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.model.deleteModelWith(modelId: modelId)
+            
+            self.delegate?.modelDeletedWith(statusCode: result)
+        })
+    }
+    
+    func asyncModelWith(#modelId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.model.modelWith(modelId: modelId)
+            
+            self.delegate?.modelRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.resourceData)
+        })
+    }
+    
+    func asyncSearchModelsBy(#name: String?, offset: Int, limit: Int) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.model.searchModelsBy(name: name, offset: offset, limit: limit)
+            
+            self.delegate?.modelsRetrievedWith(statusCode: result.statusCode, modelsData: result.resourcesData)
+        })
+    }
+    
+    func asyncModelIsReadyWith(#modelId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.model.modelIsReadyWith(modelId: modelId)
+            
+            self.delegate?.modelIsReadyWith(status: result)
+        })
+    }
+    
     //******************************************************************************************
     //************************************* PREDICTIONS ****************************************
     //*********************** https://bigml.com/developers/predictions *************************
     //******************************************************************************************
+    
+    /**
+     * SYNCHRONOUS OPERATIONS
+     */
     
     func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         return self.prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
@@ -200,5 +359,57 @@ class ML4Swift
     
     func predictionIsReadyWith(#predictionId: String) -> Bool {
         return self.prediction.predictionIsReadyWith(predictionId: predictionId)
+    }
+    
+    /**
+     * ASYNCHRONOUS OPERATIONS
+     */
+    
+    func asyncCreatePredictionWith(#modelId: String, name: String?, inputData: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
+            
+            self.delegate?.predictionCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, predictionData: result.resourceData)
+        })
+    }
+    
+    func asyncUpdatePredictionNameWith(#predictionId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.prediction.updatePredictionNameWith(predictionId: predictionId, name: name)
+            
+            self.delegate?.predictionUpdatedWith(statusCode: result)
+        })
+    }
+    
+    func asyncDeletePredictionWith(#predictionId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.prediction.deletePredictionWith(predictionId: predictionId)
+            
+            self.delegate?.predictionDeletedWith(statusCode: result)
+        })
+    }
+    
+    func asyncPredictionWith(#predictionId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.prediction.predictionWith(predictionId: predictionId)
+            
+            self.delegate?.predictionRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, predictionData: result.resourceData)
+        })
+    }
+    
+    func asyncSearchPredictionsBy(#name: String?, offset: Int, limit: Int) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.prediction.searchPredictionsBy(name: name, offset: offset, limit: limit)
+            
+            self.delegate?.predictionsRetrievedWith(statusCode: result.statusCode, predictionsData: result.resourcesData)
+        })
+    }
+    
+    func asyncPredictionIsReadyWith(#predictionId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.prediction.predictionIsReadyWith(predictionId: predictionId)
+            
+            self.delegate?.predictionIsReadyWith(status: result)
+        })
     }
 }

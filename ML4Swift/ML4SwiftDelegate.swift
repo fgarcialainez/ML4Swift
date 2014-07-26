@@ -27,15 +27,15 @@ protocol ML4SwiftDelegate
     //************************************ DATASOURCES *****************************************
     //******************************************************************************************
     
-    func dataSourceCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    func dataSourceCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
     
-    func dataSourceUpdateWith(#statusCode: HTTPStatusCode?)
+    func dataSourceUpdatedWith(#statusCode: HTTPStatusCode?)
     
     func dataSourceDeletedWith(#statusCode: HTTPStatusCode?)
     
-    func dataSourceRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    func dataSourceRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
     
-    func dataSourcesRetrievedWith(#statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
+    func dataSourcesRetrievedWith(#statusCode: HTTPStatusCode?, dataSourcesData: NSDictionary?)
     
     func dataSourceIsReadyWith(#status: Bool)
     
@@ -43,15 +43,47 @@ protocol ML4SwiftDelegate
     //************************************** DATASETS ******************************************
     //******************************************************************************************
     
-    func dataSetCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    func dataSetCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
     
-    func dataSetUpdateWith(#statusCode: HTTPStatusCode?)
+    func dataSetUpdatedWith(#statusCode: HTTPStatusCode?)
     
     func dataSetDeletedWith(#statusCode: HTTPStatusCode?)
     
-    func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
+    func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
     
-    func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
+    func dataSetsRetrievedWith(#statusCode: HTTPStatusCode?, dataSetsData: NSDictionary?)
     
     func dataSetIsReadyWith(#status: Bool)
+    
+    //******************************************************************************************
+    //*************************************** MODELS *******************************************
+    //******************************************************************************************
+    
+    func modelCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
+    
+    func modelUpdatedWith(#statusCode: HTTPStatusCode?)
+    
+    func modelDeletedWith(#statusCode: HTTPStatusCode?)
+    
+    func modelRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
+    
+    func modelsRetrievedWith(#statusCode: HTTPStatusCode?, modelsData: NSDictionary?)
+    
+    func modelIsReadyWith(#status: Bool)
+    
+    //******************************************************************************************
+    //************************************* PREDICTIONS ****************************************
+    //******************************************************************************************
+    
+    func predictionCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
+    
+    func predictionUpdatedWith(#statusCode: HTTPStatusCode?)
+    
+    func predictionDeletedWith(#statusCode: HTTPStatusCode?)
+    
+    func predictionRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
+    
+    func predictionsRetrievedWith(#statusCode: HTTPStatusCode?, predictionsData: NSDictionary?)
+    
+    func predictionIsReadyWith(#status: Bool)
 }
