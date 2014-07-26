@@ -27,8 +27,7 @@ class Model : BaseResource
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
     
-    /*override*/ var resourceBaseURL:String
-    {
+    override var resourceBaseURL:String {
         var baseURL: String
             
         if let baseAPIURLValue = DataManager.sharedInstance.baseAPIURL {
@@ -45,8 +44,7 @@ class Model : BaseResource
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
     
-    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"dataset\":\"dataset/" + dataSetId + "\""
         
@@ -60,8 +58,7 @@ class Model : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func updateModelNameWith(#modelId: String, name: String?) -> HTTPStatusCode?
-    {
+    func updateModelNameWith(#modelId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -75,22 +72,19 @@ class Model : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteModelWith(#modelId: String) -> HTTPStatusCode?
-    {
+    func deleteModelWith(#modelId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
-    {
+    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
@@ -108,8 +102,7 @@ class Model : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func modelIsReadyWith(#modelId: String) -> Bool
-    {
+    func modelIsReadyWith(#modelId: String) -> Bool {
         var ready: Bool = false
         
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!

@@ -26,9 +26,7 @@ class DataSet : BaseResource
     //******************************************************************************************
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
-    
-    /*override*/ var resourceBaseURL:String
-    {
+    override var resourceBaseURL:String {
         var baseURL: String
             
         if let baseAPIURLValue = DataManager.sharedInstance.baseAPIURL {
@@ -45,8 +43,7 @@ class DataSet : BaseResource
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
     
-    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"source\":\"source/" + dataSourceId + "\""
         
@@ -60,8 +57,7 @@ class DataSet : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func updateDataSetNameWith(#dataSetId: String, name: String?) -> HTTPStatusCode?
-    {
+    func updateDataSetNameWith(#dataSetId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -75,22 +71,19 @@ class DataSet : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode?
-    {
+    func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
-    {
+    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
@@ -108,8 +101,7 @@ class DataSet : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func dataSetIsReadyWith(#dataSetId: String) -> Bool
-    {
+    func dataSetIsReadyWith(#dataSetId: String) -> Bool {
         var ready: Bool = false
         
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!

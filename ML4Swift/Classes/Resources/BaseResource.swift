@@ -23,12 +23,13 @@ import Foundation
 
 class BaseResource
 {
-    //KNOWN ISSUE IN APPLE COMPILER
-    /**
-     * var resourceBaseURL:String{
-     *     return ""
-     * }
-     */
+    //******************************************************************************************
+    //************************* METHODS AND PROPERTIES TO BE OVERRIDEN *************************
+    //******************************************************************************************
+    
+    var resourceBaseURL:String {
+        return ""
+    }
     
     //******************************************************************************************
     //************************************* UTILITY METHODS ************************************
@@ -37,8 +38,7 @@ class BaseResource
     /*!
      * Do generic HTTP request
      */
-    func doHttpRequestWith(#url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?)
-    {
+    func doHttpRequestWith(#url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?) {
         var statusCode: HTTPStatusCode?
         
         var error : NSError?
@@ -59,8 +59,7 @@ class BaseResource
         return (statusCode, responseData)
     }
     
-    func extractResourceIdFrom(data: NSDictionary?) -> String?
-    {
+    func extractResourceIdFrom(data: NSDictionary?) -> String? {
         var resourceId: String?
         
         if let dataValue = data {
@@ -76,8 +75,7 @@ class BaseResource
     //****************************** GENERIC HTTP REQUEST METHODS ******************************
     //******************************************************************************************
     
-    func createResourceWith(#url: String, body: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func createResourceWith(#url: String, body: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
@@ -92,8 +90,7 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func updateResourceWith(#url: String, body: String?) -> HTTPStatusCode?
-    {
+    func updateResourceWith(#url: String, body: String?) -> HTTPStatusCode? {
         var resourceData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "PUT", body: body)
@@ -105,15 +102,13 @@ class BaseResource
         return result.statusCode
     }
     
-    func deleteResourceWith(#url: String) -> HTTPStatusCode?
-    {
+    func deleteResourceWith(#url: String) -> HTTPStatusCode? {
         let result = self.doHttpRequestWith(url: url, method: "DELETE", body: nil)
         
         return result.statusCode
     }
     
-    func resourceWith(#url: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func resourceWith(#url: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
@@ -128,8 +123,7 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func listResourcesWith(#url: String) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
-    {
+    func listResourcesWith(#url: String) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
         var resourcesData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)

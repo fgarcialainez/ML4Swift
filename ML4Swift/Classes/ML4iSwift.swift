@@ -1,6 +1,6 @@
 /**
  *
- * ML4iOS.swift
+ * ML4Swift.swift
  * ML4Swift
  *
  * Created by Felix Garcia Lainez on 12/07/14
@@ -28,8 +28,32 @@ class ML4Swift
     @lazy var model = Model()
     @lazy var prediction = Prediction()
     
-    init(apiUsername: String, apiKey: String, developmentMode: Bool) {
+    /*!
+     * Async Operations Queue
+     */
+    let operationQueue = NSOperationQueue()
+    
+    /*!
+     * Async Operations callback events
+     */
+    var delegate: ML4SwiftDelegate?
+    
+    //******************************************************************************************
+    //*************************** INITIALIZERS AND PUBLIC METHODS ******************************
+    //******************************************************************************************
+    
+    init(apiUsername: String, apiKey: String, developmentMode: Bool, delegate: ML4SwiftDelegate?) {
         DataManager.sharedInstance.initializeWith(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode);
+        
+        self.delegate = delegate;
+    }
+    
+    deinit {
+        self.operationQueue.cancelAllOperations()
+    }
+    
+    func cancellAllAsyncOperations() {
+        self.operationQueue.cancelAllOperations();
     }
     
     func printFrameworkData(){
@@ -37,39 +61,50 @@ class ML4Swift
         
         DataManager.sharedInstance.printCredentials()
         
+        //KNOW ISSUE WITH OVERRIDEN PROPERTIES IN SWIFT COMPILER
+        /*
         println("DataSource Base URL: " + self.dataSource.resourceBaseURL)
         println("DataSet Base URL: " + self.dataSet.resourceBaseURL)
         println("Model Base URL: " + self.model.resourceBaseURL)
         println("Prediction Base URL: " + self.prediction.resourceBaseURL)
+        */
     }
     
     //******************************************************************************************
-    //************************************** SOURCES *******************************************
+    //************************************ DATASOURCES *****************************************
     //************************ https://bigml.com/developers/sources ****************************
     //******************************************************************************************
     
-    func createDataSourceWith(name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return dataSource.createDataSourceWith(name, filePath: filePath)
+    func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+        return self.dataSource.createDataSourceWith(name: name, filePath: filePath)
+    }
+    
+    func createDataSourceAsyncWith(#name: String, filePath: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSource.createDataSourceWith(name: name, filePath: filePath)
+            
+            self.delegate?.dataSourceCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, resourceData: result.resourceData)
+        })
     }
     
     func updateDataSourceNameWith(#dataSourceId: String, name: String?) -> HTTPStatusCode? {
-        return dataSource.updateDataSourceNameWith(dataSourceId: dataSourceId, name: name)
+        return self.dataSource.updateDataSourceNameWith(dataSourceId: dataSourceId, name: name)
     }
     
     func deleteDataSourceWith(#dataSourceId: String) -> HTTPStatusCode? {
-        return dataSource.deleteDataSourceWith(dataSourceId: dataSourceId)
+        return self.dataSource.deleteDataSourceWith(dataSourceId: dataSourceId)
     }
     
     func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return dataSource.dataSourceWith(dataSourceId: dataSourceId)
+        return self.dataSource.dataSourceWith(dataSourceId: dataSourceId)
     }
     
     func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
-        return dataSource.searchDataSourcesBy(name: name, offset: offset, limit: limit)
+        return self.dataSource.searchDataSourcesBy(name: name, offset: offset, limit: limit)
     }
     
     func dataSourceIsReadyWith(#dataSourceId: String) -> Bool {
-        return dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
+        return self.dataSource.dataSourceIsReadyWith(dataSourceId: dataSourceId)
     }
     
     //******************************************************************************************
@@ -78,27 +113,35 @@ class ML4Swift
     //******************************************************************************************
     
     func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
+        return self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
+    }
+    
+    func createDataSetAsyncWith(#dataSourceId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
+            
+            self.delegate?.dataSetCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, resourceData: result.resourceData)
+        })
     }
     
     func updateDataSetNameWith(#dataSetId: String, name: String?) -> HTTPStatusCode? {
-        return dataSet.updateDataSetNameWith(dataSetId: dataSetId, name: name)
+        return self.dataSet.updateDataSetNameWith(dataSetId: dataSetId, name: name)
     }
 
     func deleteDataSetWith(#dataSetId: String) -> HTTPStatusCode? {
-        return dataSet.deleteDataSetWith(dataSetId: dataSetId)
+        return self.dataSet.deleteDataSetWith(dataSetId: dataSetId)
     }
     
     func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return dataSet.dataSetWith(dataSetId: dataSetId)
+        return self.dataSet.dataSetWith(dataSetId: dataSetId)
     }
     
     func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
-        return dataSet.searchDataSetsBy(name: name, offset: offset, limit: limit)
+        return self.dataSet.searchDataSetsBy(name: name, offset: offset, limit: limit)
     }
     
     func dataSetIsReadyWith(#dataSetId: String) -> Bool {
-        return dataSet.dataSetIsReadyWith(dataSetId: dataSetId)
+        return self.dataSet.dataSetIsReadyWith(dataSetId: dataSetId)
     }
     
     //******************************************************************************************
@@ -107,27 +150,27 @@ class ML4Swift
     //******************************************************************************************
     
     func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return model.createModelWith(dataSetId: dataSetId, name: name)
+        return self.model.createModelWith(dataSetId: dataSetId, name: name)
     }
     
     func updateModelNameWith(#modelId: String, name: String?) -> HTTPStatusCode? {
-        return model.updateModelNameWith(modelId: modelId, name: name)
+        return self.model.updateModelNameWith(modelId: modelId, name: name)
     }
     
     func deleteModelWith(#modelId: String) -> HTTPStatusCode? {
-        return model.deleteModelWith(modelId: modelId)
+        return self.model.deleteModelWith(modelId: modelId)
     }
     
     func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return model.modelWith(modelId: modelId)
+        return self.model.modelWith(modelId: modelId)
     }
     
     func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
-        return model.searchModelsBy(name: name, offset: offset, limit: limit)
+        return self.model.searchModelsBy(name: name, offset: offset, limit: limit)
     }
     
     func modelIsReadyWith(#modelId: String) -> Bool {
-        return model.modelIsReadyWith(modelId: modelId)
+        return self.model.modelIsReadyWith(modelId: modelId)
     }
     
     //******************************************************************************************
@@ -136,26 +179,26 @@ class ML4Swift
     //******************************************************************************************
     
     func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
+        return self.prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
     }
     
     func updatePredictionNameWith(#predictionId: String, name: String?) -> HTTPStatusCode? {
-        return prediction.updatePredictionNameWith(predictionId: predictionId, name: name)
+        return self.prediction.updatePredictionNameWith(predictionId: predictionId, name: name)
     }
     
     func deletePredictionWith(#predictionId: String) -> HTTPStatusCode? {
-        return prediction.deletePredictionWith(predictionId: predictionId)
+        return self.prediction.deletePredictionWith(predictionId: predictionId)
     }
     
     func predictionWith(#predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        return prediction.predictionWith(predictionId: predictionId)
+        return self.prediction.predictionWith(predictionId: predictionId)
     }
     
     func searchPredictionsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
-        return prediction.searchPredictionsBy(name: name, offset: offset, limit: limit)
+        return self.prediction.searchPredictionsBy(name: name, offset: offset, limit: limit)
     }
     
     func predictionIsReadyWith(#predictionId: String) -> Bool {
-        return prediction.predictionIsReadyWith(predictionId: predictionId)
+        return self.prediction.predictionIsReadyWith(predictionId: predictionId)
     }
 }

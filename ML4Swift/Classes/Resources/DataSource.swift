@@ -26,9 +26,8 @@ class DataSource : BaseResource
     //******************************************************************************************
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
-    
-    /*override*/ var resourceBaseURL:String
-    {
+
+    override var resourceBaseURL:String {
         var baseURL: String
             
         if let baseAPIURLValue = DataManager.sharedInstance.baseAPIURL {
@@ -45,8 +44,7 @@ class DataSource : BaseResource
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
     
-    func createDataSourceWith(name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         var returnData: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)!
         
         if let contentsOfFileValue = String.stringWithContentsOfFile(filePath, encoding: NSUTF8StringEncoding, error: nil) {
@@ -83,8 +81,7 @@ class DataSource : BaseResource
         return returnData
     }
     
-    func updateDataSourceNameWith(#dataSourceId: String, name: String?) -> HTTPStatusCode?
-    {
+    func updateDataSourceNameWith(#dataSourceId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -98,22 +95,19 @@ class DataSource : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteDataSourceWith(#dataSourceId: String) -> HTTPStatusCode?
-    {
+    func deleteDataSourceWith(#dataSourceId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)
-    {
+    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?)
-    {
+    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
@@ -131,8 +125,7 @@ class DataSource : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func dataSourceIsReadyWith(#dataSourceId: String) -> Bool
-    {
+    func dataSourceIsReadyWith(#dataSourceId: String) -> Bool {
         var ready: Bool = false
         
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
