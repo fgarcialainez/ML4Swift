@@ -44,7 +44,7 @@ class Model : BaseResource
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
     
-    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"dataset\":\"dataset/" + dataSetId + "\""
         
@@ -78,13 +78,13 @@ class Model : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
-    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, modelListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {

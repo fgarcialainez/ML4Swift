@@ -35,7 +35,7 @@ protocol ML4SwiftDelegate
     
     func dataSourceRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
     
-    func dataSourcesRetrievedWith(#statusCode: HTTPStatusCode?, dataSourcesData: NSDictionary?)
+    func dataSourcesRetrievedWith(#statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?)
     
     func dataSourceIsReadyWith(#status: Bool)
     
@@ -51,7 +51,7 @@ protocol ML4SwiftDelegate
     
     func dataSetRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
     
-    func dataSetsRetrievedWith(#statusCode: HTTPStatusCode?, dataSetsData: NSDictionary?)
+    func dataSetsRetrievedWith(#statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?)
     
     func dataSetIsReadyWith(#status: Bool)
     
@@ -67,7 +67,7 @@ protocol ML4SwiftDelegate
     
     func modelRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
     
-    func modelsRetrievedWith(#statusCode: HTTPStatusCode?, modelsData: NSDictionary?)
+    func modelsRetrievedWith(#statusCode: HTTPStatusCode?, modelListData: NSDictionary?)
     
     func modelIsReadyWith(#status: Bool)
     
@@ -83,7 +83,7 @@ protocol ML4SwiftDelegate
     
     func predictionRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
     
-    func predictionsRetrievedWith(#statusCode: HTTPStatusCode?, predictionsData: NSDictionary?)
+    func predictionsRetrievedWith(#statusCode: HTTPStatusCode?, predictionListData: NSDictionary?)
     
     func predictionIsReadyWith(#status: Bool)
 }

@@ -23,10 +23,10 @@ import Foundation
 
 class ML4Swift
 {
-    @lazy var dataSource = DataSource()
-    @lazy var dataSet = DataSet()
-    @lazy var model = Model()
-    @lazy var prediction = Prediction()
+    lazy var dataSource = DataSource()
+    lazy var dataSet = DataSet()
+    lazy var model = Model()
+    lazy var prediction = Prediction()
     
     /*!
      * Async Operations Queue
@@ -76,10 +76,10 @@ class ML4Swift
     //******************************************************************************************
     
     /**
-     * SYNCHRONOUS OPERATIONS
+     * SYNCHRONOUS DATASOURCE OPERATIONS
      */
     
-    func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         return self.dataSource.createDataSourceWith(name: name, filePath: filePath)
     }
     
@@ -91,11 +91,11 @@ class ML4Swift
         return self.dataSource.deleteDataSourceWith(dataSourceId: dataSourceId)
     }
     
-    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         return self.dataSource.dataSourceWith(dataSourceId: dataSourceId)
     }
     
-    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?) {
         return self.dataSource.searchDataSourcesBy(name: name, offset: offset, limit: limit)
     }
     
@@ -104,14 +104,14 @@ class ML4Swift
     }
     
     /**
-     * ASYNCHRONOUS OPERATIONS
+     * ASYNCHRONOUS DATASOURCE OPERATIONS
      */
     
     func asyncCreateDataSourceWith(#name: String, filePath: String) {
         self.operationQueue.addOperationWithBlock({
             let result = self.dataSource.createDataSourceWith(name: name, filePath: filePath)
             
-            self.delegate?.dataSourceCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSourceData: result.resourceData)
+            self.delegate?.dataSourceCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSourceData: result.dataSourceData)
         })
     }
     
@@ -135,15 +135,15 @@ class ML4Swift
         self.operationQueue.addOperationWithBlock({
             let result = self.dataSource.dataSourceWith(dataSourceId: dataSourceId)
             
-            self.delegate?.dataSourceRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSourceData: result.resourceData)
+            self.delegate?.dataSourceRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSourceData: result.dataSourceData)
         })
     }
     
-    func asyncDataSourcesBy(#name: String?, offset: Int, limit: Int) {
+    func asyncSearchDataSourcesBy(#name: String?, offset: Int, limit: Int) {
         self.operationQueue.addOperationWithBlock({
             let result = self.dataSource.searchDataSourcesBy(name: name, offset: offset, limit: limit)
             
-            self.delegate?.dataSourcesRetrievedWith(statusCode: result.statusCode, dataSourcesData: result.resourcesData)
+            self.delegate?.dataSourcesRetrievedWith(statusCode: result.statusCode, dataSourceListData: result.dataSourceListData)
         })
     }
     
@@ -163,10 +163,10 @@ class ML4Swift
     //******************************************************************************************
     
     /**
-     * SYNCHRONOUS OPERATIONS
+     * SYNCHRONOUS DATASET OPERATIONS
      */
     
-    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         return self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
     }
     
@@ -178,11 +178,11 @@ class ML4Swift
         return self.dataSet.deleteDataSetWith(dataSetId: dataSetId)
     }
     
-    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         return self.dataSet.dataSetWith(dataSetId: dataSetId)
     }
     
-    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?) {
         return self.dataSet.searchDataSetsBy(name: name, offset: offset, limit: limit)
     }
     
@@ -191,14 +191,14 @@ class ML4Swift
     }
     
     /**
-     * ASYNCHRONOUS OPERATIONS
+     * ASYNCHRONOUS DATASET OPERATIONS
      */
     
     func asyncCreateDataSetWith(#dataSourceId: String, name: String?) {
         self.operationQueue.addOperationWithBlock({
             let result = self.dataSet.createDataSetWith(dataSourceId: dataSourceId, name: name)
             
-            self.delegate?.dataSetCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSetData: result.resourceData)
+            self.delegate?.dataSetCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSetData: result.dataSetData)
         })
     }
     
@@ -218,11 +218,11 @@ class ML4Swift
         })
     }
     
-    func asyncDataSetAsyncWith(#dataSetId: String) {
+    func asyncDataSetWith(#dataSetId: String) {
         self.operationQueue.addOperationWithBlock({
             let result = self.dataSet.dataSetWith(dataSetId: dataSetId)
             
-            self.delegate?.dataSetRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSetData: result.resourceData)
+            self.delegate?.dataSetRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, dataSetData: result.dataSetData)
         })
     }
     
@@ -230,7 +230,7 @@ class ML4Swift
         self.operationQueue.addOperationWithBlock({
             let result = self.dataSet.searchDataSetsBy(name: name, offset: offset, limit: limit)
             
-            self.delegate?.dataSetsRetrievedWith(statusCode: result.statusCode, dataSetsData: result.resourcesData)
+            self.delegate?.dataSetsRetrievedWith(statusCode: result.statusCode, dataSetListData: result.dataSetListData)
         
         })
     }
@@ -249,10 +249,10 @@ class ML4Swift
     //******************************************************************************************
     
     /**
-     * SYNCHRONOUS OPERATIONS
+     * SYNCHRONOUS MODEL OPERATIONS
      */
     
-    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         return self.model.createModelWith(dataSetId: dataSetId, name: name)
     }
     
@@ -264,11 +264,11 @@ class ML4Swift
         return self.model.deleteModelWith(modelId: modelId)
     }
     
-    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         return self.model.modelWith(modelId: modelId)
     }
     
-    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, modelListData: NSDictionary?) {
         return self.model.searchModelsBy(name: name, offset: offset, limit: limit)
     }
     
@@ -277,14 +277,14 @@ class ML4Swift
     }
     
     /**
-     * ASYNCHRONOUS OPERATIONS
+     * ASYNCHRONOUS MODEL OPERATIONS
      */
     
     func asyncCreateModelWith(#dataSetId: String, name: String?) {
         self.operationQueue.addOperationWithBlock({
             let result = self.model.createModelWith(dataSetId: dataSetId, name: name)
             
-            self.delegate?.modelCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.resourceData)
+            self.delegate?.modelCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.modelData)
         })
     }
     
@@ -308,7 +308,7 @@ class ML4Swift
         self.operationQueue.addOperationWithBlock({
             let result = self.model.modelWith(modelId: modelId)
             
-            self.delegate?.modelRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.resourceData)
+            self.delegate?.modelRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.modelData)
         })
     }
     
@@ -316,7 +316,7 @@ class ML4Swift
         self.operationQueue.addOperationWithBlock({
             let result = self.model.searchModelsBy(name: name, offset: offset, limit: limit)
             
-            self.delegate?.modelsRetrievedWith(statusCode: result.statusCode, modelsData: result.resourcesData)
+            self.delegate?.modelsRetrievedWith(statusCode: result.statusCode, modelListData: result.modelListData)
         })
     }
     
@@ -334,10 +334,10 @@ class ML4Swift
     //******************************************************************************************
     
     /**
-     * SYNCHRONOUS OPERATIONS
+     * SYNCHRONOUS PREDICTION OPERATIONS
      */
     
-    func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         return self.prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
     }
     
@@ -349,11 +349,11 @@ class ML4Swift
         return self.prediction.deletePredictionWith(predictionId: predictionId)
     }
     
-    func predictionWith(#predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func predictionWith(#predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         return self.prediction.predictionWith(predictionId: predictionId)
     }
     
-    func searchPredictionsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchPredictionsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, predictionListData: NSDictionary?) {
         return self.prediction.searchPredictionsBy(name: name, offset: offset, limit: limit)
     }
     
@@ -362,14 +362,14 @@ class ML4Swift
     }
     
     /**
-     * ASYNCHRONOUS OPERATIONS
+     * ASYNCHRONOUS PREDICTION OPERATIONS
      */
     
     func asyncCreatePredictionWith(#modelId: String, name: String?, inputData: String?) {
         self.operationQueue.addOperationWithBlock({
             let result = self.prediction.createPredictionWith(modelId: modelId, name: name, inputData: inputData)
             
-            self.delegate?.predictionCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, predictionData: result.resourceData)
+            self.delegate?.predictionCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, predictionData: result.predictionData)
         })
     }
     
@@ -393,7 +393,7 @@ class ML4Swift
         self.operationQueue.addOperationWithBlock({
             let result = self.prediction.predictionWith(predictionId: predictionId)
             
-            self.delegate?.predictionRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, predictionData: result.resourceData)
+            self.delegate?.predictionRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, predictionData: result.predictionData)
         })
     }
     
@@ -401,7 +401,7 @@ class ML4Swift
         self.operationQueue.addOperationWithBlock({
             let result = self.prediction.searchPredictionsBy(name: name, offset: offset, limit: limit)
             
-            self.delegate?.predictionsRetrievedWith(statusCode: result.statusCode, predictionsData: result.resourcesData)
+            self.delegate?.predictionsRetrievedWith(statusCode: result.statusCode, predictionListData: result.predictionListData)
         })
     }
     

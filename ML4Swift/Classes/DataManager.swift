@@ -97,7 +97,7 @@ class DataManager
         }
         
         if let developmentModeValue = self.accountData?.developmentMode {
-            println("Development Mode: " + String(developmentModeValue))
+            println("Development Mode: \(developmentModeValue)")
         }
         else {
             println("No Development Mode Available")

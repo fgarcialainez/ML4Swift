@@ -44,8 +44,8 @@ class DataSource : BaseResource
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
     
-    func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
-        var returnData: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)!
+    func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
+        var returnData: (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)!
         
         if let contentsOfFileValue = String.stringWithContentsOfFile(filePath, encoding: NSUTF8StringEncoding, error: nil) {
             let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
@@ -101,13 +101,13 @@ class DataSource : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
-    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSourceWith(#dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchDataSourcesBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {

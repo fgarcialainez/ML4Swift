@@ -75,7 +75,7 @@ class BaseResource
     //****************************** GENERIC HTTP REQUEST METHODS ******************************
     //******************************************************************************************
     
-    func createResourceWith(#url: String, body: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createResourceWith(#url: String, body: String?) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
@@ -108,7 +108,7 @@ class BaseResource
         return result.statusCode
     }
     
-    func resourceWith(#url: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func resourceWith(#url: String) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
@@ -123,7 +123,7 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func listResourcesWith(#url: String) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func listResourcesWith(#url: String) -> (HTTPStatusCode?, NSDictionary?) {
         var resourcesData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)

@@ -26,6 +26,7 @@ class DataSet : BaseResource
     //******************************************************************************************
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
+    
     override var resourceBaseURL:String {
         var baseURL: String
             
@@ -43,7 +44,7 @@ class DataSet : BaseResource
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
     
-    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"source\":\"source/" + dataSourceId + "\""
         
@@ -77,13 +78,13 @@ class DataSet : BaseResource
         return self.deleteResourceWith(url: urlString)
     }
     
-    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?) {
+    func dataSetWith(#dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, resourcesData: NSDictionary?) {
+    func searchDataSetsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
