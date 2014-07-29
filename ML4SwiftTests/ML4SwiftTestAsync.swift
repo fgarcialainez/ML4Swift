@@ -41,7 +41,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        self.library = ML4Swift(apiUsername: "felixksp", apiKey: "9236b5c57063074edadc7baa25602a6360fc3872", developmentMode: false, delegate: self)
+        self.library = ML4Swift(apiUsername: "YOUR_BIGML_USERNAME", apiKey: "YOUR_BIGML_API_KEY", developmentMode: false, delegate: self)
     }
     
     override func tearDown() {
