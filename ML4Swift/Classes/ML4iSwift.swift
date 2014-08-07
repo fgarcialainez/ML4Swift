@@ -27,6 +27,7 @@ class ML4Swift
     lazy var dataSet = DataSet()
     lazy var model = Model()
     lazy var prediction = Prediction()
+    lazy var cluster = Cluster()
     
     /*!
      * Async Operations Queue
@@ -411,5 +412,90 @@ class ML4Swift
             
             self.delegate?.predictionIsReadyWith(status: result)
         })
+    }
+    
+    //******************************************************************************************
+    //************************************** CLUSTERS ******************************************
+    //************************ https://bigml.com/developers/clusters ***************************
+    //******************************************************************************************
+    
+    /**
+    * SYNCHRONOUS CLUSTER OPERATIONS
+    */
+    
+    func createClusterWith(#dataSetId: String, name: String?, numberOfClusters: Int? = 8) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+        return self.cluster.createClusterWith(dataSetId: dataSetId, name: name, numberOfClusters: numberOfClusters)
+    }
+    
+    func updateClusterNameWith(#clusterId: String, name: String?) -> HTTPStatusCode? {
+        return self.cluster.updateClusterNameWith(clusterId: clusterId, name: name)
+    }
+    
+    func deleteClusterWith(#clusterId: String) -> HTTPStatusCode? {
+        return self.cluster.deleteClusterWith(clusterId: clusterId)
+    }
+    
+    func clusterWith(#clusterId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+        return self.cluster.clusterWith(clusterId: clusterId)
+    }
+    
+    func searchClustersBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, clusterListData: NSDictionary?) {
+        return self.cluster.searchClustersBy(name: name, offset: offset, limit: limit)
+    }
+    
+    func clusterIsReadyWith(#clusterId: String) -> Bool {
+        return self.cluster.clusterIsReadyWith(clusterId: clusterId)
+    }
+    
+    /**
+    * ASYNCHRONOUS CLUSTER OPERATIONS
+    */
+    
+    func asyncCreateClusterWith(#dataSetId: String, name: String?, numberOfClusters: Int? = 8) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.cluster.createClusterWith(dataSetId: dataSetId, name: name, numberOfClusters: numberOfClusters)
+            
+            self.delegate?.clusterCreatedWith(statusCode: result.statusCode, resourceId: result.resourceId, clusterData: result.clusterData)
+            })
+    }
+    
+    func asyncUpdateClusterNameWith(#clusterId: String, name: String?) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.cluster.updateClusterNameWith(clusterId: clusterId, name: name)
+            
+            self.delegate?.modelUpdatedWith(statusCode: result)
+            })
+    }
+    
+    func asyncDeleteClusterWith(#clusterId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.cluster.deleteClusterWith(clusterId: clusterId)
+            
+            self.delegate?.modelDeletedWith(statusCode: result)
+            })
+    }
+    
+    func asyncClusterWith(#clusterId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.cluster.clusterWith(clusterId: clusterId)
+            
+            self.delegate?.modelRetrievedWith(statusCode: result.statusCode, resourceId: result.resourceId, modelData: result.clusterData)
+            })
+    }
+    
+    func asyncSearchClustersBy(#name: String?, offset: Int, limit: Int) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.cluster.searchClustersBy(name: name, offset: offset, limit: limit)
+            
+            self.delegate?.clustersRetrievedWith(statusCode: result.statusCode, clusterListData: result.clusterListData)
+            })
+    }
+    
+    func asyncClusterIsReadyWith(#clusterId: String) {
+        self.operationQueue.addOperationWithBlock({
+            let result = self.cluster.clusterIsReadyWith(clusterId: clusterId)
+            
+            self.delegate?.modelIsReadyWith(status: result)
+            })
     }
 }

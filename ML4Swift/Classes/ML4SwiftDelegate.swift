@@ -86,4 +86,20 @@ protocol ML4SwiftDelegate
     func predictionsRetrievedWith(#statusCode: HTTPStatusCode?, predictionListData: NSDictionary?)
     
     func predictionIsReadyWith(#status: Bool)
+    
+    //******************************************************************************************
+    //************************************** CLUSTERS ******************************************
+    //******************************************************************************************
+    
+    func clusterCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
+    
+    func clusterUpdatedWith(#statusCode: HTTPStatusCode?)
+    
+    func clusterDeletedWith(#statusCode: HTTPStatusCode?)
+    
+    func clusterRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
+    
+    func clustersRetrievedWith(#statusCode: HTTPStatusCode?, clusterListData: NSDictionary?)
+    
+    func clusterIsReadyWith(#status: Bool)
 }

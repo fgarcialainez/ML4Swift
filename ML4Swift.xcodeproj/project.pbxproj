@@ -12,6 +12,10 @@
 		DC23365119721DDB00EC5B79 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364C19721DDB00EC5B79 /* DataSource.swift */; };
 		DC23365219721DDB00EC5B79 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364D19721DDB00EC5B79 /* Model.swift */; };
 		DC23365319721DDB00EC5B79 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364E19721DDB00EC5B79 /* Prediction.swift */; };
+		DC813AAA1993DE2900440F03 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */; };
+		DC813AAC1993E14B00440F03 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AAB1993E14B00440F03 /* Cluster.swift */; };
+		DC813AAD1993E66F00440F03 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */; };
+		DC813AAE1993E68A00440F03 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AAB1993E14B00440F03 /* Cluster.swift */; };
 		DC88721019719415004E9F06 /* ML4Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DC88720F19719415004E9F06 /* ML4Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC88721619719415004E9F06 /* ML4Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC88720A19719415004E9F06 /* ML4Swift.framework */; };
 		DC88722F19719494004E9F06 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722C19719494004E9F06 /* Constants.swift */; };
@@ -22,8 +26,6 @@
 		DC887236197194F8004E9F06 /* ML4iSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722E19719494004E9F06 /* ML4iSwift.swift */; };
 		DCC18E08198405F500F55C39 /* ML4SwiftTestAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC18E06198405F500F55C39 /* ML4SwiftTestAsync.swift */; };
 		DCC18E09198405F500F55C39 /* ML4SwiftTestSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC18E07198405F500F55C39 /* ML4SwiftTestSync.swift */; };
-		DCCF3E641983B24B00AB1F07 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF3E631983B24B00AB1F07 /* ML4SwiftDelegate.swift */; };
-		DCCF3E651983B24B00AB1F07 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF3E631983B24B00AB1F07 /* ML4SwiftDelegate.swift */; };
 		DCE8A7E9197222900029DB67 /* BaseResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364A19721DDB00EC5B79 /* BaseResource.swift */; };
 		DCE8A7EA197222900029DB67 /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364B19721DDB00EC5B79 /* DataSet.swift */; };
 		DCE8A7EB197222900029DB67 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364C19721DDB00EC5B79 /* DataSource.swift */; };
@@ -69,6 +71,8 @@
 		DC23364C19721DDB00EC5B79 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataSource.swift; path = Classes/Resources/DataSource.swift; sourceTree = "<group>"; };
 		DC23364D19721DDB00EC5B79 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = Classes/Resources/Model.swift; sourceTree = "<group>"; };
 		DC23364E19721DDB00EC5B79 /* Prediction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Prediction.swift; path = Classes/Resources/Prediction.swift; sourceTree = "<group>"; };
+		DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ML4SwiftDelegate.swift; path = Classes/ML4SwiftDelegate.swift; sourceTree = "<group>"; };
+		DC813AAB1993E14B00440F03 /* Cluster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cluster.swift; path = Classes/Resources/Cluster.swift; sourceTree = "<group>"; };
 		DC88720A19719415004E9F06 /* ML4Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ML4Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC88720E19719415004E9F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC88720F19719415004E9F06 /* ML4Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ML4Swift.h; sourceTree = "<group>"; };
@@ -79,7 +83,6 @@
 		DC88722E19719494004E9F06 /* ML4iSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ML4iSwift.swift; path = Classes/ML4iSwift.swift; sourceTree = "<group>"; };
 		DCC18E06198405F500F55C39 /* ML4SwiftTestAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftTestAsync.swift; sourceTree = "<group>"; };
 		DCC18E07198405F500F55C39 /* ML4SwiftTestSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftTestSync.swift; sourceTree = "<group>"; };
-		DCCF3E631983B24B00AB1F07 /* ML4SwiftDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftDelegate.swift; sourceTree = "<group>"; };
 		DCF33A5A197A907100F4FE56 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +166,7 @@
 				DC88722C19719494004E9F06 /* Constants.swift */,
 				DC88722D19719494004E9F06 /* DataManager.swift */,
 				DC88722E19719494004E9F06 /* ML4iSwift.swift */,
-				DCCF3E631983B24B00AB1F07 /* ML4SwiftDelegate.swift */,
+				DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */,
 				DC88722719719478004E9F06 /* Resources */,
 			);
 			name = Classes;
@@ -173,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				DC23364A19721DDB00EC5B79 /* BaseResource.swift */,
+				DC813AAB1993E14B00440F03 /* Cluster.swift */,
 				DC23364B19721DDB00EC5B79 /* DataSet.swift */,
 				DC23364C19721DDB00EC5B79 /* DataSource.swift */,
 				DC23364D19721DDB00EC5B79 /* Model.swift */,
@@ -297,10 +301,11 @@
 				DC23365119721DDB00EC5B79 /* DataSource.swift in Sources */,
 				DC23364F19721DDB00EC5B79 /* BaseResource.swift in Sources */,
 				DC23365019721DDB00EC5B79 /* DataSet.swift in Sources */,
+				DC813AAC1993E14B00440F03 /* Cluster.swift in Sources */,
 				DC23365319721DDB00EC5B79 /* Prediction.swift in Sources */,
 				DC88723019719494004E9F06 /* DataManager.swift in Sources */,
 				DC88722F19719494004E9F06 /* Constants.swift in Sources */,
-				DCCF3E641983B24B00AB1F07 /* ML4SwiftDelegate.swift in Sources */,
+				DC813AAA1993DE2900440F03 /* ML4SwiftDelegate.swift in Sources */,
 				DC88723119719494004E9F06 /* ML4iSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,10 +314,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC813AAE1993E68A00440F03 /* Cluster.swift in Sources */,
+				DC813AAD1993E66F00440F03 /* ML4SwiftDelegate.swift in Sources */,
 				DCE8A7E9197222900029DB67 /* BaseResource.swift in Sources */,
 				DCE8A7EA197222900029DB67 /* DataSet.swift in Sources */,
 				DCC18E09198405F500F55C39 /* ML4SwiftTestSync.swift in Sources */,
-				DCCF3E651983B24B00AB1F07 /* ML4SwiftDelegate.swift in Sources */,
 				DCE8A7EB197222900029DB67 /* DataSource.swift in Sources */,
 				DCC18E08198405F500F55C39 /* ML4SwiftTestAsync.swift in Sources */,
 				DCE8A7EC197222900029DB67 /* Model.swift in Sources */,

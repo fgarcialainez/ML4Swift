@@ -32,6 +32,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     var resultDataSetId: NSString?
     var resultModelId: NSString?
     var resultPredictionId: NSString?
+    var resultClusterId: NSString?
     
     //******************************************************************************************
     //*********************************** OVERRIDEN METHODS ************************************
@@ -41,7 +42,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        self.library = ML4Swift(apiUsername: "YOUR_BIGML_USERNAME", apiKey: "YOUR_BIGML_API_KEY", developmentMode: false, delegate: self)
+        self.library = ML4Swift(apiUsername: "BIGML_API_USERNAME", apiKey: "BIGML_API_KEY", developmentMode: false, delegate: self)
     }
     
     override func tearDown() {
@@ -55,14 +56,14 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     
     func waitForAsyncOperation(timeout: NSTimeInterval = 30) {
         
-        if !self.expectation {
+        if self.expectation == nil {
             self.expectation = self.expectationWithDescription("ASYNCHRONOUS_OPERATION")
             self.waitForExpectationsWithTimeout(timeout, nil)
         }
     }
     
     func signalForAsyncOperation() {
-        if self.expectation {
+        if self.expectation != nil {
             self.expectation!.fulfill()
             self.expectation = nil
         }
@@ -139,7 +140,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
                         self.library.asyncUpdatePredictionNameWith(predictionId: predictionIdValue, name: "My Prediction Updated")
                         self.waitForAsyncOperation()
                         
-                        // Delete Created Prediction
+                        // Delete created Prediction
                         self.library.asyncDeletePredictionWith(predictionId: predictionIdValue)
                         self.waitForAsyncOperation()
                     }
@@ -160,8 +161,40 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
                     self.library.asyncUpdateModelNameWith(modelId: modelIdValue, name: "My Model Updated")
                     self.waitForAsyncOperation()
                     
-                    // Delete Created Model
+                    // Delete created Model
                     self.library.asyncDeleteModelWith(modelId: modelIdValue)
+                    self.waitForAsyncOperation()
+                }
+                
+                //******************************************************************************************
+                //************************************ CLUSTER OPERATIONS **********************************
+                //******************************************************************************************
+                
+                // Create Model Async from DataSet Identifier
+                self.library.asyncCreateClusterWith(dataSetId: dataSetIdValue, name: "My Cluster")
+                self.waitForAsyncOperation()
+                
+                // Optional Binding
+                if let clusterIdValue = self.resultClusterId {
+                    // Wait while Model is ready
+                    while !self.library.clusterIsReadyWith(clusterId: clusterIdValue) {
+                        sleep(3)
+                    }
+                    
+                    // Retrieve created Cluster
+                    self.library.asyncClusterWith(clusterId: clusterIdValue)
+                    self.waitForAsyncOperation()
+                    
+                    // Search for Clusters
+                    self.library.asyncSearchClustersBy(name: "My Cluster", offset: 0, limit: 15)
+                    self.waitForAsyncOperation()
+                    
+                    // Update Cluster name
+                    self.library.asyncUpdateClusterNameWith(clusterId: clusterIdValue, name: "My Cluster Updated")
+                    self.waitForAsyncOperation()
+                    
+                    // Delete created Cluster
+                    self.library.asyncDeleteClusterWith(clusterId: clusterIdValue)
                     self.waitForAsyncOperation()
                 }
                 
@@ -181,7 +214,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
                 self.library.asyncUpdateDataSetNameWith(dataSetId: dataSetIdValue, name: "My DataSet Updated")
                 self.waitForAsyncOperation()
                 
-                // Delete Created DataSet
+                // Delete created DataSet
                 self.library.asyncDeleteDataSetWith(dataSetId: dataSetIdValue)
                 self.waitForAsyncOperation()
             }
@@ -202,7 +235,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
             self.library.asyncUpdateDataSourceNameWith(dataSourceId: dataSourceIdValue, name: "My DataSource Updated")
             self.waitForAsyncOperation()
             
-            // Delete Created DataSource
+            // Delete created DataSource
             self.library.asyncDeleteDataSourceWith(dataSourceId: dataSourceIdValue)
             self.waitForAsyncOperation()
         }
@@ -394,5 +427,52 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     }
     
     func predictionIsReadyWith(#status: Bool) {
+    }
+    
+    /**
+     * CLUSTER CALLBACKS
+     */
+    
+    func clusterCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Cluster - Invalid status code returned")
+        XCTAssertTrue(resourceId != nil, "Error creating Cluster - Invalid resourceId returned")
+        XCTAssertTrue(clusterData != nil, "Error creating Cluster - Invalid resourceData returned")
+        
+        self.resultClusterId = resourceId
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func clusterUpdatedWith(#statusCode: HTTPStatusCode?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Cluster")
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func clusterDeletedWith(#statusCode: HTTPStatusCode?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Cluster")
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func clusterRetrievedWith(#statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Cluster - Invalid status code returned")
+        XCTAssertTrue(resourceId != nil, "Error retrieving Cluster - Invalid resourceId returned")
+        XCTAssertTrue(clusterData != nil, "Error retrieving Cluster - Invalid resourceData returned")
+        
+        self.resultPredictionId = resourceId
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func clustersRetrievedWith(#statusCode: HTTPStatusCode?, clusterListData: NSDictionary?) {
+        XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Clusters - Invalid status code returned")
+        XCTAssertTrue(clusterListData != nil, "Error searching for Clusters - Invalid resourceData returned")
+        
+        self.signalForAsyncOperation()
+    }
+    
+    func clusterIsReadyWith(#status: Bool) {
+        
     }
 }

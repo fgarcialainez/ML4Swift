@@ -33,7 +33,7 @@ class ML4SwiftTestSync : XCTestCase
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        self.library = ML4Swift(apiUsername: "YOUR_BIGML_USERNAME", apiKey: "YOUR_BIGML_API_KEY", developmentMode: false, delegate: nil)
+        self.library = ML4Swift(apiUsername: "BIGML_API_USERNAME", apiKey: "BIGML_API_KEY", developmentMode: false, delegate: nil)
     }
     
     override func tearDown() {
@@ -129,7 +129,7 @@ class ML4SwiftTestSync : XCTestCase
                         let statusUpdatePrediction = self.library.updatePredictionNameWith(predictionId: predictionIdValue, name: "My Prediction Updated")
                         XCTAssertTrue(statusUpdatePrediction != nil && statusUpdatePrediction == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Prediction")
         
-                        // Delete Created Prediction
+                        // Delete created Prediction
                         let statusDeletePrediction = self.library.deletePredictionWith(predictionId: predictionIdValue)
                         XCTAssertTrue(statusDeletePrediction != nil && statusDeletePrediction == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Prediction")
                     }
@@ -155,9 +155,49 @@ class ML4SwiftTestSync : XCTestCase
                     let statusUpdateModel = self.library.updateModelNameWith(modelId: modelIdValue, name: "My Model Updated")
                     XCTAssertTrue(statusUpdateModel != nil && statusUpdateModel == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Model")
                     
-                    // Delete Created Model
+                    // Delete created Model
                     let statusDeleteModel = self.library.deleteModelWith(modelId: modelIdValue)
                     XCTAssertTrue(statusDeleteModel != nil && statusDeleteModel == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Model")
+                }
+                
+                //******************************************************************************************
+                //************************************ CLUSTER OPERATIONS **********************************
+                //******************************************************************************************
+                
+                // Create Cluster from DataSet Identifier
+                let resultCluster = self.library.createClusterWith(dataSetId: dataSetIdValue, name: "My Cluster" , numberOfClusters: 4)
+                
+                XCTAssertTrue(resultCluster.statusCode != nil && resultModel.statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Cluster - Invalid status code returned")
+                XCTAssertTrue(resultCluster.resourceId != nil, "Error creating Cluster - Invalid resourceId returned")
+                XCTAssertTrue(resultCluster.clusterData != nil, "Error creating Cluster - Invalid resourceData returned")
+                
+                // Optional Binding
+                if let clusterIdValue = resultCluster.resourceId {
+                    // Wait while Model is ready
+                    while !self.library.clusterIsReadyWith(clusterId: clusterIdValue) {
+                        sleep(3)
+                    }
+                    
+                    // Retrieve created Prediction
+                    let retrievedCluster = self.library.clusterWith(clusterId: clusterIdValue)
+                    
+                    XCTAssertTrue(retrievedCluster.statusCode != nil && retrievedCluster.statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Cluster - Invalid status code returned")
+                    XCTAssertTrue(retrievedCluster.resourceId != nil, "Error retrieving Cluster - Invalid resourceId returned")
+                    XCTAssertTrue(retrievedCluster.clusterData != nil, "Error retrieving Cluster - Invalid resourceData returned")
+                    
+                    // Search for Cluster
+                    let clusters = self.library.searchClustersBy(name: "My Cluster", offset: 0, limit: 15)
+                    
+                    XCTAssertTrue(clusters.statusCode != nil && clusters.statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Clusters - Invalid status code returned")
+                    XCTAssertTrue(clusters.clusterListData != nil, "Error searching for Clusters - Invalid resourceData returned")
+                    
+                    // Update Cluster name
+                    let statusUpdateCluster = self.library.updateClusterNameWith(clusterId: clusterIdValue, name: "My Cluster Updated")
+                    XCTAssertTrue(statusUpdateCluster != nil && statusUpdateCluster == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Cluster")
+                    
+                    // Delete created Cluster
+                    let statusDeleteCluster = self.library.deleteClusterWith(clusterId: clusterIdValue)
+                    XCTAssertTrue(statusDeleteCluster != nil && statusDeleteCluster == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Cluster")
                 }
                 
                 //******************************************************************************************
@@ -181,7 +221,7 @@ class ML4SwiftTestSync : XCTestCase
                 let statusUpdateDataSet = self.library.updateDataSetNameWith(dataSetId: dataSetIdValue, name: "My DataSet Updated")
                 XCTAssertTrue(statusUpdateDataSet != nil && statusUpdateDataSet == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSet")
                 
-                // Delete Created DataSet
+                // Delete created DataSet
                 let statusDeleteDataSet = self.library.deleteDataSetWith(dataSetId: dataSetIdValue)
                 XCTAssertTrue(statusDeleteDataSet != nil && statusDeleteDataSet == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSet")
             }
@@ -207,7 +247,7 @@ class ML4SwiftTestSync : XCTestCase
             let statusUpdateDataSource = self.library.updateDataSourceNameWith(dataSourceId: dataSourceIdValue, name: "My DataSource Updated")
             XCTAssertTrue(statusUpdateDataSource != nil && statusUpdateDataSource == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSource")
             
-            // Delete Created DataSource
+            // Delete created DataSource
             let statusDeleteDataSource = self.library.deleteDataSourceWith(dataSourceId: dataSourceIdValue)
             XCTAssertTrue(statusDeleteDataSource != nil && statusDeleteDataSource == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSource")
         }
