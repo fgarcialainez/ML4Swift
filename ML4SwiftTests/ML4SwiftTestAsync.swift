@@ -80,7 +80,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         
         // Create DataSource Async from iris.csv
         let path = NSBundle(forClass: ML4SwiftTestAsync.self).pathForResource("iris", ofType: "csv")
-        self.library.asyncCreateDataSourceWith(name: "My DataSource", filePath: path)
+        self.library.asyncCreateDataSourceWith(name: "My DataSource", filePath: path!)
         self.waitForAsyncOperation()
         
         // Optional Binding

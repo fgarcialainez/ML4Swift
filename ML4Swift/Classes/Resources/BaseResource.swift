@@ -82,7 +82,7 @@ class BaseResource
         let result = self.doHttpRequestWith(url: url, method: "POST", body: body)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_CREATED {
-            resourceData = NSJSONSerialization.JSONObjectWithData(result.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
             
             resourceId = self.extractResourceIdFrom(resourceData)
         }
@@ -96,7 +96,7 @@ class BaseResource
         let result = self.doHttpRequestWith(url: url, method: "PUT", body: body)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_ACCEPTED {
-            resourceData = NSJSONSerialization.JSONObjectWithData(result.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
         }
         
         return result.statusCode
@@ -115,7 +115,7 @@ class BaseResource
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_OK {
-            resourceData = NSJSONSerialization.JSONObjectWithData(result.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
             
             resourceId = self.extractResourceIdFrom(resourceData)
         }
@@ -129,7 +129,7 @@ class BaseResource
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_OK {
-            resourcesData = NSJSONSerialization.JSONObjectWithData(result.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourcesData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
         }
         
         return (result.statusCode, resourcesData)

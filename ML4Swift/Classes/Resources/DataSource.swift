@@ -67,7 +67,7 @@ class DataSource : BaseResource
             let result = self.doHttpRequestWith(url: urlString, method: "POST", body: postbody, contentType: contentType)
             
             if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_CREATED {
-                resourceData = NSJSONSerialization.JSONObjectWithData(result.data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+                resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
                 
                 resourceId = self.extractResourceIdFrom(resourceData)
             }
@@ -111,7 +111,7 @@ class DataSource : BaseResource
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
-            urlString += "name=" + nameValue.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) + ";"
+            urlString += "name=" + nameValue.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)! + ";"
         }
         
         if offset > 0 {
