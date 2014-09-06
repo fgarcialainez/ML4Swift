@@ -27,6 +27,8 @@ class BaseResource
     //************************* METHODS AND PROPERTIES TO BE OVERRIDEN *************************
     //******************************************************************************************
     
+    // MARK: - Properties
+    
     var resourceBaseURL:String {
         return ""
     }
@@ -34,6 +36,8 @@ class BaseResource
     //******************************************************************************************
     //************************************* UTILITY METHODS ************************************
     //******************************************************************************************
+    
+    // MARK: - Utility methods
     
     /*!
      * Do generic HTTP request
@@ -74,6 +78,8 @@ class BaseResource
     //******************************************************************************************
     //****************************** GENERIC HTTP REQUEST METHODS ******************************
     //******************************************************************************************
+    
+    // MARK: - Generic HTTP request methods
     
     func createResourceWith(#url: String, body: String?) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?

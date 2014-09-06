@@ -23,6 +23,8 @@ import XCTest
 
 class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
 {
+    // MARK: - Properties
+    
     var library: ML4Swift!
     
     // Used to implement a Semaphore
@@ -37,6 +39,8 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     //******************************************************************************************
     //*********************************** OVERRIDEN METHODS ************************************
     //******************************************************************************************
+    
+    // MARK: - Overriden methods
     
     override func setUp() {
         super.setUp()
@@ -53,6 +57,8 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     //******************************************************************************************
     //*************************** UTILITY METHODS FOR ASYNC OPERATIONS *************************
     //******************************************************************************************
+    
+    // MARK: - Utility methods
     
     func waitForAsyncOperation(timeout: NSTimeInterval = 30) {
         
@@ -72,6 +78,8 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     //******************************************************************************************
     //*************************************** TEST CASES ***************************************
     //******************************************************************************************
+    
+    // MARK: - Test Cases
     
     func testML4SwiftAsyncOperations() {
         //******************************************************************************************
@@ -244,6 +252,8 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     //******************************************************************************************
     //************************************* ML4SwiftDelegate ***********************************
     //******************************************************************************************
+    
+    // MARK: - ML4SwiftDelegate callback methods
     
     /**
      * DATASOURCE CALLBACKS

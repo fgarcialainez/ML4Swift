@@ -27,6 +27,8 @@ class Cluster : BaseResource
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
     
+    // MARK: - Properties
+    
     override var resourceBaseURL:String {
         var baseURL: String
             
@@ -43,6 +45,8 @@ class Cluster : BaseResource
     //******************************************************************************************
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
+    
+    // MARK: - Public methods
     
     func createClusterWith(#dataSetId: String, name: String?, numberOfClusters: Int?) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!

@@ -23,6 +23,8 @@ import Foundation
 
 class DataManager
 {
+    // MARK: - Properties
+    
     /**
      * Struct to hold BigML account data
      */
@@ -58,6 +60,8 @@ class DataManager
      */
     var baseAPIURL:String?
     
+    // MARK: - Accessors and initializers
+    
     /**
      * Singleton accessor
      */
@@ -80,6 +84,8 @@ class DataManager
             self.baseAPIURL = "https://bigml.io/andromeda";
         }
     }
+    
+    // MARK: - Public Methods
     
     func printCredentials() {
         if let apiUsernameValue = self.accountData?.apiUsername {

@@ -26,6 +26,8 @@ class DataSource : BaseResource
     //******************************************************************************************
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
+    
+    // MARK: - Properties
 
     override var resourceBaseURL:String {
         var baseURL: String
@@ -43,6 +45,8 @@ class DataSource : BaseResource
     //******************************************************************************************
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
+    
+    // MARK: - Public methods
     
     func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         var returnData: (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)!

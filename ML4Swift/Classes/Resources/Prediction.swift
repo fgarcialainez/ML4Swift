@@ -27,6 +27,8 @@ class Prediction : BaseResource
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
     
+    // MARK: - Properties
+    
     override var resourceBaseURL:String {
         var baseURL: String
             
@@ -43,6 +45,8 @@ class Prediction : BaseResource
     //******************************************************************************************
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
+    
+    // MARK: - Public methods
     
     func createPredictionWith(#modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!

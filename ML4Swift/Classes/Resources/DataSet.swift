@@ -27,6 +27,8 @@ class DataSet : BaseResource
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
     
+    // MARK: - Properties
+    
     override var resourceBaseURL:String {
         var baseURL: String
             
@@ -43,6 +45,8 @@ class DataSet : BaseResource
     //******************************************************************************************
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
+    
+    // MARK: - Public methods
     
     func createDataSetWith(#dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!

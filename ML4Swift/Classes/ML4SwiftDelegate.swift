@@ -27,6 +27,8 @@ protocol ML4SwiftDelegate
     //************************************ DATASOURCES *****************************************
     //******************************************************************************************
     
+    // MARK: - DataSources
+    
     func dataSourceCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
     
     func dataSourceUpdatedWith(#statusCode: HTTPStatusCode?)
@@ -42,6 +44,8 @@ protocol ML4SwiftDelegate
     //******************************************************************************************
     //************************************** DATASETS ******************************************
     //******************************************************************************************
+    
+    // MARK: - DataSets
     
     func dataSetCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
     
@@ -59,6 +63,8 @@ protocol ML4SwiftDelegate
     //*************************************** MODELS *******************************************
     //******************************************************************************************
     
+    // MARK: - Models
+    
     func modelCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
     
     func modelUpdatedWith(#statusCode: HTTPStatusCode?)
@@ -75,6 +81,8 @@ protocol ML4SwiftDelegate
     //************************************* PREDICTIONS ****************************************
     //******************************************************************************************
     
+    // MARK: - Predictions
+    
     func predictionCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
     
     func predictionUpdatedWith(#statusCode: HTTPStatusCode?)
@@ -90,6 +98,8 @@ protocol ML4SwiftDelegate
     //******************************************************************************************
     //************************************** CLUSTERS ******************************************
     //******************************************************************************************
+    
+    // MARK: - Clusters
     
     func clusterCreatedWith(#statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
     

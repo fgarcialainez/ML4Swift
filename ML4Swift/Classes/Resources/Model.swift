@@ -27,6 +27,8 @@ class Model : BaseResource
     //**************************** OVERRIDEN METHODS AND PROPERTIES ****************************
     //******************************************************************************************
     
+    // MARK: - Properties
+    
     override var resourceBaseURL:String {
         var baseURL: String
             
@@ -43,6 +45,8 @@ class Model : BaseResource
     //******************************************************************************************
     //************************************ PUBLIC METHODS **************************************
     //******************************************************************************************
+    
+    // MARK: - Public methods
     
     func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!

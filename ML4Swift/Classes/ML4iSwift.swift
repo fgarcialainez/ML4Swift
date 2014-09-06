@@ -23,25 +23,29 @@ import Foundation
 
 class ML4Swift
 {
-    lazy var dataSource = DataSource()
-    lazy var dataSet = DataSet()
-    lazy var model = Model()
-    lazy var prediction = Prediction()
-    lazy var cluster = Cluster()
+    // MARK: - Properties
+    
+    private lazy var dataSource = DataSource()
+    private lazy var dataSet = DataSet()
+    private lazy var model = Model()
+    private lazy var prediction = Prediction()
+    private lazy var cluster = Cluster()
     
     /*!
      * Async Operations Queue
      */
-    let operationQueue = NSOperationQueue()
+    private let operationQueue = NSOperationQueue()
     
     /*!
      * Async Operations callback events
      */
-    var delegate: ML4SwiftDelegate?
+    private var delegate: ML4SwiftDelegate?
     
     //******************************************************************************************
     //*************************** INITIALIZERS AND PUBLIC METHODS ******************************
     //******************************************************************************************
+    
+    // MARK: - Initializers and public methods
     
     init(apiUsername: String, apiKey: String, developmentMode: Bool, delegate: ML4SwiftDelegate?) {
         DataManager.sharedInstance.initializeWith(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode);
@@ -61,20 +65,14 @@ class ML4Swift
         println()
         
         DataManager.sharedInstance.printCredentials()
-        
-        //KNOW ISSUE WITH OVERRIDEN PROPERTIES IN SWIFT COMPILER
-        /*
-        println("DataSource Base URL: " + self.dataSource.resourceBaseURL)
-        println("DataSet Base URL: " + self.dataSet.resourceBaseURL)
-        println("Model Base URL: " + self.model.resourceBaseURL)
-        println("Prediction Base URL: " + self.prediction.resourceBaseURL)
-        */
     }
     
     //******************************************************************************************
     //************************************ DATASOURCES *****************************************
     //************************ https://bigml.com/developers/sources ****************************
     //******************************************************************************************
+    
+    // MARK: - DataSources
     
     /**
      * SYNCHRONOUS DATASOURCE OPERATIONS
@@ -163,6 +161,8 @@ class ML4Swift
     //************************ https://bigml.com/developers/datasets ***************************
     //******************************************************************************************
     
+    // MARK: - DataSets
+    
     /**
      * SYNCHRONOUS DATASET OPERATIONS
      */
@@ -249,6 +249,8 @@ class ML4Swift
     //************************* https://bigml.com/developers/models ****************************
     //******************************************************************************************
     
+    // MARK: - Models
+    
     /**
      * SYNCHRONOUS MODEL OPERATIONS
      */
@@ -333,6 +335,8 @@ class ML4Swift
     //************************************* PREDICTIONS ****************************************
     //*********************** https://bigml.com/developers/predictions *************************
     //******************************************************************************************
+    
+    // MARK: - Predictions
     
     /**
      * SYNCHRONOUS PREDICTION OPERATIONS
@@ -419,9 +423,11 @@ class ML4Swift
     //************************ https://bigml.com/developers/clusters ***************************
     //******************************************************************************************
     
+    // MARK: - Clusters
+    
     /**
-    * SYNCHRONOUS CLUSTER OPERATIONS
-    */
+     * SYNCHRONOUS CLUSTER OPERATIONS
+     */
     
     func createClusterWith(#dataSetId: String, name: String?, numberOfClusters: Int? = 8) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
         return self.cluster.createClusterWith(dataSetId: dataSetId, name: name, numberOfClusters: numberOfClusters)
@@ -448,8 +454,8 @@ class ML4Swift
     }
     
     /**
-    * ASYNCHRONOUS CLUSTER OPERATIONS
-    */
+     * ASYNCHRONOUS CLUSTER OPERATIONS
+     */
     
     func asyncCreateClusterWith(#dataSetId: String, name: String?, numberOfClusters: Int? = 8) {
         self.operationQueue.addOperationWithBlock({
