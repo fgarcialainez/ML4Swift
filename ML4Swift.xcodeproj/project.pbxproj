@@ -14,56 +14,24 @@
 		DC23365319721DDB00EC5B79 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364E19721DDB00EC5B79 /* Prediction.swift */; };
 		DC813AAA1993DE2900440F03 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */; };
 		DC813AAC1993E14B00440F03 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AAB1993E14B00440F03 /* Cluster.swift */; };
-		DC813AAD1993E66F00440F03 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */; };
-		DC813AAE1993E68A00440F03 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AAB1993E14B00440F03 /* Cluster.swift */; };
 		DC88721019719415004E9F06 /* ML4Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DC88720F19719415004E9F06 /* ML4Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC88721619719415004E9F06 /* ML4Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC88720A19719415004E9F06 /* ML4Swift.framework */; };
 		DC88722F19719494004E9F06 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722C19719494004E9F06 /* Constants.swift */; };
 		DC88723019719494004E9F06 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722D19719494004E9F06 /* DataManager.swift */; };
 		DC88723119719494004E9F06 /* ML4iSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722E19719494004E9F06 /* ML4iSwift.swift */; };
-		DC887234197194F8004E9F06 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722C19719494004E9F06 /* Constants.swift */; };
-		DC887235197194F8004E9F06 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722D19719494004E9F06 /* DataManager.swift */; };
-		DC887236197194F8004E9F06 /* ML4iSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722E19719494004E9F06 /* ML4iSwift.swift */; };
-		DCC18E08198405F500F55C39 /* ML4SwiftTestAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC18E06198405F500F55C39 /* ML4SwiftTestAsync.swift */; };
-		DCC18E09198405F500F55C39 /* ML4SwiftTestSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC18E07198405F500F55C39 /* ML4SwiftTestSync.swift */; };
-		DCE8A7E9197222900029DB67 /* BaseResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364A19721DDB00EC5B79 /* BaseResource.swift */; };
-		DCE8A7EA197222900029DB67 /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364B19721DDB00EC5B79 /* DataSet.swift */; };
-		DCE8A7EB197222900029DB67 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364C19721DDB00EC5B79 /* DataSource.swift */; };
-		DCE8A7EC197222900029DB67 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364D19721DDB00EC5B79 /* Model.swift */; };
-		DCE8A7ED197222900029DB67 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364E19721DDB00EC5B79 /* Prediction.swift */; };
-		DCF33A5B197A907100F4FE56 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = DCF33A5A197A907100F4FE56 /* iris.csv */; };
+		DCF7F48619C10E3000EEAC66 /* ML4SwiftTestAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF7F48419C10E3000EEAC66 /* ML4SwiftTestAsync.swift */; };
+		DCF7F48719C10E3000EEAC66 /* ML4SwiftTestSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF7F48519C10E3000EEAC66 /* ML4SwiftTestSync.swift */; };
+		DCF7F49419C10EAD00EEAC66 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = DCF7F49219C10EAD00EEAC66 /* iris.csv */; };
+		DCF7F49B19C10F9000EEAC66 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722C19719494004E9F06 /* Constants.swift */; };
+		DCF7F49C19C10F9000EEAC66 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722D19719494004E9F06 /* DataManager.swift */; };
+		DCF7F49D19C10F9000EEAC66 /* ML4iSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722E19719494004E9F06 /* ML4iSwift.swift */; };
+		DCF7F49E19C10F9000EEAC66 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */; };
+		DCF7F49F19C10F9000EEAC66 /* BaseResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364A19721DDB00EC5B79 /* BaseResource.swift */; };
+		DCF7F4A019C10F9000EEAC66 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AAB1993E14B00440F03 /* Cluster.swift */; };
+		DCF7F4A119C10F9000EEAC66 /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364B19721DDB00EC5B79 /* DataSet.swift */; };
+		DCF7F4A219C10F9000EEAC66 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364C19721DDB00EC5B79 /* DataSource.swift */; };
+		DCF7F4A319C10F9000EEAC66 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364D19721DDB00EC5B79 /* Model.swift */; };
+		DCF7F4A419C10F9000EEAC66 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364E19721DDB00EC5B79 /* Prediction.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		DC88721719719415004E9F06 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC88720119719415004E9F06 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC88720919719415004E9F06;
-			remoteInfo = ML4Swift;
-		};
-		DC887232197194F2004E9F06 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC88720119719415004E9F06 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC88720919719415004E9F06;
-			remoteInfo = ML4Swift;
-		};
-		DCF33A5C197A908200F4FE56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC88720119719415004E9F06 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC88720919719415004E9F06;
-			remoteInfo = ML4Swift;
-		};
-		DCF33A5E197A908200F4FE56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC88720119719415004E9F06 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC88720919719415004E9F06;
-			remoteInfo = ML4Swift;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DC23364A19721DDB00EC5B79 /* BaseResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseResource.swift; path = Classes/Resources/BaseResource.swift; sourceTree = "<group>"; };
@@ -76,14 +44,14 @@
 		DC88720A19719415004E9F06 /* ML4Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ML4Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC88720E19719415004E9F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC88720F19719415004E9F06 /* ML4Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ML4Swift.h; sourceTree = "<group>"; };
-		DC88721519719415004E9F06 /* ML4SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ML4SwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC88721B19719415004E9F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC88722C19719494004E9F06 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Classes/Constants.swift; sourceTree = "<group>"; };
 		DC88722D19719494004E9F06 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Classes/DataManager.swift; sourceTree = "<group>"; };
 		DC88722E19719494004E9F06 /* ML4iSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ML4iSwift.swift; path = Classes/ML4iSwift.swift; sourceTree = "<group>"; };
-		DCC18E06198405F500F55C39 /* ML4SwiftTestAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftTestAsync.swift; sourceTree = "<group>"; };
-		DCC18E07198405F500F55C39 /* ML4SwiftTestSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftTestSync.swift; sourceTree = "<group>"; };
-		DCF33A5A197A907100F4FE56 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
+		DCF7F47719C10E0100EEAC66 /* ML4SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ML4SwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCF7F48419C10E3000EEAC66 /* ML4SwiftTestAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftTestAsync.swift; sourceTree = "<group>"; };
+		DCF7F48519C10E3000EEAC66 /* ML4SwiftTestSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ML4SwiftTestSync.swift; sourceTree = "<group>"; };
+		DCF7F49119C10EAD00EEAC66 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCF7F49219C10EAD00EEAC66 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,11 +62,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC88721219719415004E9F06 /* Frameworks */ = {
+		DCF7F47419C10E0100EEAC66 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC88721619719415004E9F06 /* ML4Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				DC88720C19719415004E9F06 /* ML4Swift */,
-				DC88721919719415004E9F06 /* ML4SwiftTests */,
+				DCF7F47819C10E0100EEAC66 /* ML4SwiftTests */,
 				DC88720B19719415004E9F06 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				DC88720A19719415004E9F06 /* ML4Swift.framework */,
-				DC88721519719415004E9F06 /* ML4SwiftTests.xctest */,
+				DCF7F47719C10E0100EEAC66 /* ML4SwiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,25 +104,6 @@
 			children = (
 				DC88720E19719415004E9F06 /* Info.plist */,
 				DC88720F19719415004E9F06 /* ML4Swift.h */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DC88721919719415004E9F06 /* ML4SwiftTests */ = {
-			isa = PBXGroup;
-			children = (
-				DCC18E06198405F500F55C39 /* ML4SwiftTestAsync.swift */,
-				DCC18E07198405F500F55C39 /* ML4SwiftTestSync.swift */,
-				DC88721A19719415004E9F06 /* Supporting Files */,
-			);
-			path = ML4SwiftTests;
-			sourceTree = "<group>";
-		};
-		DC88721A19719415004E9F06 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DCF33A5A197A907100F4FE56 /* iris.csv */,
-				DC88721B19719415004E9F06 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -183,6 +131,25 @@
 				DC23364E19721DDB00EC5B79 /* Prediction.swift */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		DCF7F47819C10E0100EEAC66 /* ML4SwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCF7F48419C10E3000EEAC66 /* ML4SwiftTestAsync.swift */,
+				DCF7F48519C10E3000EEAC66 /* ML4SwiftTestSync.swift */,
+				DCF7F49019C10E9D00EEAC66 /* Supporting Files */,
+			);
+			path = ML4SwiftTests;
+			sourceTree = "<group>";
+		};
+		DCF7F49019C10E9D00EEAC66 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCF7F49219C10EAD00EEAC66 /* iris.csv */,
+				DCF7F49119C10EAD00EEAC66 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,25 +184,21 @@
 			productReference = DC88720A19719415004E9F06 /* ML4Swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DC88721419719415004E9F06 /* ML4SwiftTests */ = {
+		DCF7F47619C10E0100EEAC66 /* ML4SwiftTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC88722319719415004E9F06 /* Build configuration list for PBXNativeTarget "ML4SwiftTests" */;
+			buildConfigurationList = DCF7F47D19C10E0200EEAC66 /* Build configuration list for PBXNativeTarget "ML4SwiftTests" */;
 			buildPhases = (
-				DC88721119719415004E9F06 /* Sources */,
-				DC88721219719415004E9F06 /* Frameworks */,
-				DC88721319719415004E9F06 /* Resources */,
+				DCF7F47319C10E0100EEAC66 /* Sources */,
+				DCF7F47419C10E0100EEAC66 /* Frameworks */,
+				DCF7F47519C10E0100EEAC66 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DC88721819719415004E9F06 /* PBXTargetDependency */,
-				DC887233197194F2004E9F06 /* PBXTargetDependency */,
-				DCF33A5D197A908200F4FE56 /* PBXTargetDependency */,
-				DCF33A5F197A908200F4FE56 /* PBXTargetDependency */,
 			);
 			name = ML4SwiftTests;
 			productName = ML4SwiftTests;
-			productReference = DC88721519719415004E9F06 /* ML4SwiftTests.xctest */;
+			productReference = DCF7F47719C10E0100EEAC66 /* ML4SwiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -250,9 +213,8 @@
 					DC88720919719415004E9F06 = {
 						CreatedOnToolsVersion = 6.0;
 					};
-					DC88721419719415004E9F06 = {
+					DCF7F47619C10E0100EEAC66 = {
 						CreatedOnToolsVersion = 6.0;
-						TestTargetID = DC88720919719415004E9F06;
 					};
 				};
 			};
@@ -269,7 +231,7 @@
 			projectRoot = "";
 			targets = (
 				DC88720919719415004E9F06 /* ML4Swift */,
-				DC88721419719415004E9F06 /* ML4SwiftTests */,
+				DCF7F47619C10E0100EEAC66 /* ML4SwiftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -282,11 +244,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC88721319719415004E9F06 /* Resources */ = {
+		DCF7F47519C10E0100EEAC66 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCF33A5B197A907100F4FE56 /* iris.csv in Resources */,
+				DCF7F49419C10EAD00EEAC66 /* iris.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,49 +272,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC88721119719415004E9F06 /* Sources */ = {
+		DCF7F47319C10E0100EEAC66 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC813AAE1993E68A00440F03 /* Cluster.swift in Sources */,
-				DC813AAD1993E66F00440F03 /* ML4SwiftDelegate.swift in Sources */,
-				DCE8A7E9197222900029DB67 /* BaseResource.swift in Sources */,
-				DCE8A7EA197222900029DB67 /* DataSet.swift in Sources */,
-				DCC18E09198405F500F55C39 /* ML4SwiftTestSync.swift in Sources */,
-				DCE8A7EB197222900029DB67 /* DataSource.swift in Sources */,
-				DCC18E08198405F500F55C39 /* ML4SwiftTestAsync.swift in Sources */,
-				DCE8A7EC197222900029DB67 /* Model.swift in Sources */,
-				DCE8A7ED197222900029DB67 /* Prediction.swift in Sources */,
-				DC887234197194F8004E9F06 /* Constants.swift in Sources */,
-				DC887235197194F8004E9F06 /* DataManager.swift in Sources */,
-				DC887236197194F8004E9F06 /* ML4iSwift.swift in Sources */,
+				DCF7F49B19C10F9000EEAC66 /* Constants.swift in Sources */,
+				DCF7F49C19C10F9000EEAC66 /* DataManager.swift in Sources */,
+				DCF7F49D19C10F9000EEAC66 /* ML4iSwift.swift in Sources */,
+				DCF7F49E19C10F9000EEAC66 /* ML4SwiftDelegate.swift in Sources */,
+				DCF7F49F19C10F9000EEAC66 /* BaseResource.swift in Sources */,
+				DCF7F4A019C10F9000EEAC66 /* Cluster.swift in Sources */,
+				DCF7F4A119C10F9000EEAC66 /* DataSet.swift in Sources */,
+				DCF7F4A219C10F9000EEAC66 /* DataSource.swift in Sources */,
+				DCF7F4A319C10F9000EEAC66 /* Model.swift in Sources */,
+				DCF7F4A419C10F9000EEAC66 /* Prediction.swift in Sources */,
+				DCF7F48719C10E3000EEAC66 /* ML4SwiftTestSync.swift in Sources */,
+				DCF7F48619C10E3000EEAC66 /* ML4SwiftTestAsync.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DC88721819719415004E9F06 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC88720919719415004E9F06 /* ML4Swift */;
-			targetProxy = DC88721719719415004E9F06 /* PBXContainerItemProxy */;
-		};
-		DC887233197194F2004E9F06 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC88720919719415004E9F06 /* ML4Swift */;
-			targetProxy = DC887232197194F2004E9F06 /* PBXContainerItemProxy */;
-		};
-		DCF33A5D197A908200F4FE56 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC88720919719415004E9F06 /* ML4Swift */;
-			targetProxy = DCF33A5C197A908200F4FE56 /* PBXContainerItemProxy */;
-		};
-		DCF33A5F197A908200F4FE56 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC88720919719415004E9F06 /* ML4Swift */;
-			targetProxy = DCF33A5E197A908200F4FE56 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DC88721E19719415004E9F06 /* Debug */ = {
@@ -471,7 +410,7 @@
 			};
 			name = Release;
 		};
-		DC88722419719415004E9F06 /* Debug */ = {
+		DCF7F47E19C10E0200EEAC66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -484,12 +423,13 @@
 				);
 				INFOPLIST_FILE = ML4SwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		DC88722519719415004E9F06 /* Release */ = {
+		DCF7F47F19C10E0200EEAC66 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -498,7 +438,7 @@
 				);
 				INFOPLIST_FILE = ML4SwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -524,14 +464,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DC88722319719415004E9F06 /* Build configuration list for PBXNativeTarget "ML4SwiftTests" */ = {
+		DCF7F47D19C10E0200EEAC66 /* Build configuration list for PBXNativeTarget "ML4SwiftTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC88722419719415004E9F06 /* Debug */,
-				DC88722519719415004E9F06 /* Release */,
+				DCF7F47E19C10E0200EEAC66 /* Debug */,
+				DCF7F47F19C10E0200EEAC66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

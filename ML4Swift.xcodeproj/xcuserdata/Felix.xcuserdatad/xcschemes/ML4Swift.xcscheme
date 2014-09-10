@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC88721419719415004E9F06"
+               BlueprintIdentifier = "DCF7F47619C10E0100EEAC66"
                BuildableName = "ML4SwiftTests.xctest"
                BlueprintName = "ML4SwiftTests"
                ReferencedContainer = "container:ML4Swift.xcodeproj">
@@ -50,6 +50,15 @@
       debugDocumentVersioning = "YES"
       debugXPCServices = "NO"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DC88720919719415004E9F06"
+            BuildableName = "ML4Swift.framework"
+            BlueprintName = "ML4Swift"
+            ReferencedContainer = "container:ML4Swift.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
