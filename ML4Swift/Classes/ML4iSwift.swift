@@ -39,7 +39,7 @@ class ML4Swift
     /*!
      * Async Operations callback events
      */
-    private var delegate: ML4SwiftDelegate?
+    weak var delegate: ML4SwiftDelegate?
     
     //******************************************************************************************
     //*************************** INITIALIZERS AND PUBLIC METHODS ******************************
