@@ -48,7 +48,7 @@ class BaseResource
         var error : NSError?
         var response: NSURLResponse?
         
-        var request = NSMutableURLRequest(URL: NSURL.URLWithString(url))
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = method
         request.addValue(contentType, forHTTPHeaderField: "Content-Type")
         request.HTTPBody = body?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -57,7 +57,7 @@ class BaseResource
         
         if let httpResponse = response as? NSHTTPURLResponse {
             // Work with HTTP response
-            statusCode = HTTPStatusCode.fromRaw(httpResponse.statusCode)
+            statusCode = HTTPStatusCode(rawValue: httpResponse.statusCode)
         }
         
         return (statusCode, responseData)
@@ -150,7 +150,7 @@ class BaseResource
                     let resourceStatus: AnyObject? = resourceDataValue.objectForKey("status")?.objectForKey("code")
                     
                     if let resourceStatusValue = resourceStatus?.integerValue {
-                        ready = (resourceStatusValue == ResourceStatusCode.FINISHED.toRaw())
+                        ready = (resourceStatusValue == ResourceStatusCode.FINISHED.rawValue)
                     }
                 }
             }

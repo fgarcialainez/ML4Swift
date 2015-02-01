@@ -51,7 +51,7 @@ class DataSource : BaseResource
     func createDataSourceWith(#name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         var returnData: (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)!
         
-        if let contentsOfFileValue = String.stringWithContentsOfFile(filePath, encoding: NSUTF8StringEncoding, error: nil) {
+        if let contentsOfFileValue = String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding, error: nil) {
             let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
             var bodyString: String = ""
         
