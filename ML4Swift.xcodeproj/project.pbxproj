@@ -18,19 +18,10 @@
 		DC88722F19719494004E9F06 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722C19719494004E9F06 /* Constants.swift */; };
 		DC88723019719494004E9F06 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722D19719494004E9F06 /* DataManager.swift */; };
 		DC88723119719494004E9F06 /* ML4iSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722E19719494004E9F06 /* ML4iSwift.swift */; };
+		DCB4C4171A7E927D0090D57B /* ML4Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC88720A19719415004E9F06 /* ML4Swift.framework */; };
 		DCF7F48619C10E3000EEAC66 /* ML4SwiftTestAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF7F48419C10E3000EEAC66 /* ML4SwiftTestAsync.swift */; };
 		DCF7F48719C10E3000EEAC66 /* ML4SwiftTestSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF7F48519C10E3000EEAC66 /* ML4SwiftTestSync.swift */; };
 		DCF7F49419C10EAD00EEAC66 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = DCF7F49219C10EAD00EEAC66 /* iris.csv */; };
-		DCF7F49B19C10F9000EEAC66 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722C19719494004E9F06 /* Constants.swift */; };
-		DCF7F49C19C10F9000EEAC66 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722D19719494004E9F06 /* DataManager.swift */; };
-		DCF7F49D19C10F9000EEAC66 /* ML4iSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88722E19719494004E9F06 /* ML4iSwift.swift */; };
-		DCF7F49E19C10F9000EEAC66 /* ML4SwiftDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AA91993DE2900440F03 /* ML4SwiftDelegate.swift */; };
-		DCF7F49F19C10F9000EEAC66 /* BaseResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364A19721DDB00EC5B79 /* BaseResource.swift */; };
-		DCF7F4A019C10F9000EEAC66 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC813AAB1993E14B00440F03 /* Cluster.swift */; };
-		DCF7F4A119C10F9000EEAC66 /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364B19721DDB00EC5B79 /* DataSet.swift */; };
-		DCF7F4A219C10F9000EEAC66 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364C19721DDB00EC5B79 /* DataSource.swift */; };
-		DCF7F4A319C10F9000EEAC66 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364D19721DDB00EC5B79 /* Model.swift */; };
-		DCF7F4A419C10F9000EEAC66 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23364E19721DDB00EC5B79 /* Prediction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCB4C4171A7E927D0090D57B /* ML4Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,16 +268,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCF7F49B19C10F9000EEAC66 /* Constants.swift in Sources */,
-				DCF7F49C19C10F9000EEAC66 /* DataManager.swift in Sources */,
-				DCF7F49D19C10F9000EEAC66 /* ML4iSwift.swift in Sources */,
-				DCF7F49E19C10F9000EEAC66 /* ML4SwiftDelegate.swift in Sources */,
-				DCF7F49F19C10F9000EEAC66 /* BaseResource.swift in Sources */,
-				DCF7F4A019C10F9000EEAC66 /* Cluster.swift in Sources */,
-				DCF7F4A119C10F9000EEAC66 /* DataSet.swift in Sources */,
-				DCF7F4A219C10F9000EEAC66 /* DataSource.swift in Sources */,
-				DCF7F4A319C10F9000EEAC66 /* Model.swift in Sources */,
-				DCF7F4A419C10F9000EEAC66 /* Prediction.swift in Sources */,
 				DCF7F48719C10E3000EEAC66 /* ML4SwiftTestSync.swift in Sources */,
 				DCF7F48619C10E3000EEAC66 /* ML4SwiftTestAsync.swift in Sources */,
 			);

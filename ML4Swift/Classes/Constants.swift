@@ -24,7 +24,7 @@ import Foundation
 /**
  * HTTP Status Codes
  */
-enum HTTPStatusCode : Int {
+public enum HTTPStatusCode : Int {
     case HTTP_OK = 200
     case HTTP_CREATED = 201
     case HTTP_ACCEPTED = 202
@@ -42,7 +42,7 @@ enum HTTPStatusCode : Int {
 /**
  * Resource Status Codes (A resource can be a data source, dataset, model or prediction)
  */
-enum ResourceStatusCode : Int {
+public enum ResourceStatusCode : Int {
     case WAITING = 0
     case QUEUED = 1
     case STARTED = 2

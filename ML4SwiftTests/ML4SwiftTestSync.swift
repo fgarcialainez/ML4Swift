@@ -20,6 +20,7 @@
  */
 
 import XCTest
+import ML4Swift
 
 class ML4SwiftTestSync : XCTestCase
 {
