@@ -31,11 +31,11 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     // Used to implement a Semaphore
     var expectation: XCTestExpectation?
 
-    var resultDataSourceId: NSString?
-    var resultDataSetId: NSString?
-    var resultModelId: NSString?
-    var resultPredictionId: NSString?
-    var resultClusterId: NSString?
+    var resultDataSourceId: String?
+    var resultDataSetId: String?
+    var resultModelId: String?
+    var resultPredictionId: String?
+    var resultClusterId: String?
     
     //******************************************************************************************
     //*********************************** OVERRIDEN METHODS ************************************
@@ -65,7 +65,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         
         if self.expectation == nil {
             self.expectation = self.expectationWithDescription("ASYNCHRONOUS_OPERATION")
-            self.waitForExpectationsWithTimeout(timeout, nil)
+            self.waitForExpectationsWithTimeout(timeout, handler: nil)
         }
     }
     
