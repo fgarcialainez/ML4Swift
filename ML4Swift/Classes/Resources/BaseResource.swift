@@ -42,18 +42,22 @@ class BaseResource
     /*!
      * Do generic HTTP request
      */
-    func doHttpRequestWith(#url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?) {
+    func doHttpRequestWith(url url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?) {
         var statusCode: HTTPStatusCode?
         
-        var error : NSError?
         var response: NSURLResponse?
         
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = method
         request.addValue(contentType, forHTTPHeaderField: "Content-Type")
         request.HTTPBody = body?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         
-        let responseData = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
+        let responseData: NSData?
+        do {
+            responseData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
+        } catch {
+            responseData = nil
+        }
         
         if let httpResponse = response as? NSHTTPURLResponse {
             // Work with HTTP response
@@ -81,14 +85,14 @@ class BaseResource
     
     // MARK: - Generic HTTP request methods
     
-    func createResourceWith(#url: String, body: String?) -> (HTTPStatusCode?, String?, NSDictionary?) {
+    func createResourceWith(url url: String, body: String?) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "POST", body: body)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_CREATED {
-            resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourceData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
             
             resourceId = self.extractResourceIdFrom(resourceData)
         }
@@ -96,32 +100,26 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func updateResourceWith(#url: String, body: String?) -> HTTPStatusCode? {
-        var resourceData: NSDictionary?
-        
+    func updateResourceWith(url url: String, body: String?) -> HTTPStatusCode? {
         let result = self.doHttpRequestWith(url: url, method: "PUT", body: body)
-        
-        if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_ACCEPTED {
-            resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
-        }
         
         return result.statusCode
     }
     
-    func deleteResourceWith(#url: String) -> HTTPStatusCode? {
+    func deleteResourceWith(url url: String) -> HTTPStatusCode? {
         let result = self.doHttpRequestWith(url: url, method: "DELETE", body: nil)
         
         return result.statusCode
     }
     
-    func resourceWith(#url: String) -> (HTTPStatusCode?, String?, NSDictionary?) {
+    func resourceWith(url url: String) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_OK {
-            resourceData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourceData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
             
             resourceId = self.extractResourceIdFrom(resourceData)
         }
@@ -129,19 +127,19 @@ class BaseResource
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func listResourcesWith(#url: String) -> (HTTPStatusCode?, NSDictionary?) {
+    func listResourcesWith(url url: String) -> (HTTPStatusCode?, NSDictionary?) {
         var resourcesData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_OK {
-            resourcesData = NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+            resourcesData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
         }
         
         return (result.statusCode, resourcesData)
     }
     
-    func resourceIsReadyWith(#result: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)) -> Bool {
+    func resourceIsReadyWith(result result: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)) -> Bool {
         var ready: Bool = false;
         
         if let statusCodeValue = result.statusCode {

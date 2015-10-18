@@ -48,7 +48,7 @@ class Model : BaseResource
     
     // MARK: - Public methods
     
-    func createModelWith(#dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
+    func createModelWith(dataSetId dataSetId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"dataset\":\"dataset/" + dataSetId + "\""
         
@@ -62,7 +62,7 @@ class Model : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func updateModelNameWith(#modelId: String, name: String?) -> HTTPStatusCode? {
+    func updateModelNameWith(modelId modelId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -76,23 +76,23 @@ class Model : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteModelWith(#modelId: String) -> HTTPStatusCode? {
+    func deleteModelWith(modelId modelId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func modelWith(#modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
+    func modelWith(modelId modelId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchModelsBy(#name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, modelListData: NSDictionary?) {
+    func searchModelsBy(name name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, modelListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
-            urlString += "name=" + nameValue.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)! + ";"
+            urlString += "name=" + nameValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())! + ";"
         }
         
         if offset > 0 {
@@ -106,9 +106,7 @@ class Model : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func modelIsReadyWith(#modelId: String) -> Bool {
-        var ready: Bool = false
-        
+    func modelIsReadyWith(modelId modelId: String) -> Bool {
         let urlString: String = self.resourceBaseURL + "/" + modelId + DataManager.sharedInstance.authToken!
         let result = self.resourceWith(url: urlString)
         

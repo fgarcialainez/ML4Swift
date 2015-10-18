@@ -72,7 +72,7 @@ class DataManager
         return Singleton.instance
     }
     
-    func initializeWith(#apiUsername: String, apiKey: String, developmentMode: Bool) {
+    func initializeWith(apiUsername apiUsername: String, apiKey: String, developmentMode: Bool) {
         self.accountData = BigMLAccountData(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode)
         
         self.authToken = "?username=" + apiUsername + ";api_key=" + apiKey + ";"
@@ -89,38 +89,38 @@ class DataManager
     
     func printCredentials() {
         if let apiUsernameValue = self.accountData?.apiUsername {
-            println("API Username: " + apiUsernameValue)
+            print("API Username: " + apiUsernameValue)
         }
         else {
-            println("No API Username Available")
+            print("No API Username Available")
         }
         
         if let apiKeyValue = self.accountData?.apiKey {
-            println("API Key: " + apiKeyValue)
+            print("API Key: " + apiKeyValue)
         }
         else {
-            println("No API Key Available")
+            print("No API Key Available")
         }
         
         if let developmentModeValue = self.accountData?.developmentMode {
-            println("Development Mode: \(developmentModeValue)")
+            print("Development Mode: \(developmentModeValue)")
         }
         else {
-            println("No Development Mode Available")
+            print("No Development Mode Available")
         }
         
         if let authTokenValue = self.authToken {
-            println("Auth Token: " + authTokenValue)
+            print("Auth Token: " + authTokenValue)
         }
         else {
-            println("No Auth Token Available")
+            print("No Auth Token Available")
         }
         
         if let baseAPIURLValue = self.baseAPIURL {
-            println("Base API URL: " + baseAPIURLValue)
+            print("Base API URL: " + baseAPIURLValue)
         }
         else {
-            println("No Base API URL Available")
+            print("No Base API URL Available")
         }
     }
 }
