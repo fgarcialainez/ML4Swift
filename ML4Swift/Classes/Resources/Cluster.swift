@@ -48,7 +48,7 @@ class Cluster : BaseResource
     
     // MARK: - Public methods
     
-    func createClusterWith(dataSetId dataSetId: String, name: String?, numberOfClusters: Int?) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+    func createClusterWith(dataSetId: String, name: String?, numberOfClusters: Int?) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"dataset\":\"dataset/" + dataSetId + "\""
         
@@ -65,7 +65,7 @@ class Cluster : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func updateClusterNameWith(clusterId clusterId: String, name: String?) -> HTTPStatusCode? {
+    func updateClusterNameWith(clusterId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + clusterId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -79,23 +79,23 @@ class Cluster : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteClusterWith(clusterId clusterId: String) -> HTTPStatusCode? {
+    func deleteClusterWith(clusterId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + clusterId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func clusterWith(clusterId clusterId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+    func clusterWith(clusterId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + clusterId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchClustersBy(name name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, clusterListData: NSDictionary?) {
+    func searchClustersBy(name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, clusterListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
-            urlString += "name=" + nameValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())! + ";"
+            urlString += "name=" + nameValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + ";"
         }
         
         if offset > 0 {
@@ -109,7 +109,7 @@ class Cluster : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func clusterIsReadyWith(clusterId clusterId: String) -> Bool {
+    func clusterIsReadyWith(clusterId: String) -> Bool {
         let urlString: String = self.resourceBaseURL + "/" + clusterId + DataManager.sharedInstance.authToken!
         let result = self.resourceWith(url: urlString)
         

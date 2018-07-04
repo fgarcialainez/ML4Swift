@@ -48,7 +48,7 @@ class DataSet : BaseResource
     
     // MARK: - Public methods
     
-    func createDataSetWith(dataSourceId dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
+    func createDataSetWith(dataSourceId: String, name: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"source\":\"source/" + dataSourceId + "\""
         
@@ -62,7 +62,7 @@ class DataSet : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func updateDataSetNameWith(dataSetId dataSetId: String, name: String?) -> HTTPStatusCode? {
+    func updateDataSetNameWith(dataSetId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -76,23 +76,23 @@ class DataSet : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteDataSetWith(dataSetId dataSetId: String) -> HTTPStatusCode? {
+    func deleteDataSetWith(dataSetId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func dataSetWith(dataSetId dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
+    func dataSetWith(dataSetId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchDataSetsBy(name name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?) {
+    func searchDataSetsBy(name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
-            urlString += "name=" + nameValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())! + ";"
+            urlString += "name=" + nameValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + ";"
         }
         
         if offset > 0 {
@@ -106,7 +106,7 @@ class DataSet : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func dataSetIsReadyWith(dataSetId dataSetId: String) -> Bool {
+    func dataSetIsReadyWith(dataSetId: String) -> Bool {
         let urlString: String = self.resourceBaseURL + "/" + dataSetId + DataManager.sharedInstance.authToken!
         let result = self.resourceWith(url: urlString)
         

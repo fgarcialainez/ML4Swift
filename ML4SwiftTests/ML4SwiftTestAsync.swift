@@ -61,11 +61,11 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
     
     // MARK: - Utility methods
     
-    func waitForAsyncOperation(timeout: NSTimeInterval = 30) {
+    func waitForAsyncOperation(timeout: TimeInterval = 30) {
         
         if self.expectation == nil {
-            self.expectation = self.expectationWithDescription("ASYNCHRONOUS_OPERATION")
-            self.waitForExpectationsWithTimeout(timeout, handler: nil)
+            self.expectation = self.expectation(description: "ASYNCHRONOUS_OPERATION")
+            self.waitForExpectations(timeout: timeout, handler: nil)
         }
     }
     
@@ -88,7 +88,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         //******************************************************************************************
         
         // Create DataSource Async from iris.csv
-        let path = NSBundle(forClass: ML4SwiftTestAsync.self).pathForResource("iris", ofType: "csv")
+        let path = Bundle(for: ML4SwiftTestAsync.self).path(forResource: "iris", ofType: "csv")
         self.library.asyncCreateDataSourceWith(name: "My DataSource", filePath: path!)
         self.waitForAsyncOperation()
         
@@ -260,7 +260,7 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
      * DATASOURCE CALLBACKS
      */
     
-    func dataSourceCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
+    func dataSourceCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSource - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating DataSource - Invalid resourceId returned")
         XCTAssertTrue(dataSourceData != nil, "Error creating DataSource - Invalid resourceData returned")
@@ -270,19 +270,19 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func dataSourceUpdatedWith(statusCode statusCode: HTTPStatusCode?) {
+    func dataSourceUpdatedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSource")
         
         self.signalForAsyncOperation()
     }
     
-    func dataSourceDeletedWith(statusCode statusCode: HTTPStatusCode?) {
+    func dataSourceDeletedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSource")
         
         self.signalForAsyncOperation()
     }
     
-    func dataSourceRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
+    func dataSourceRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving DataSource - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error retrieving DataSource - Invalid resourceId returned")
         XCTAssertTrue(dataSourceData != nil, "Error retrieving DataSource - Invalid resourceData returned")
@@ -292,21 +292,21 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func dataSourcesRetrievedWith(statusCode statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?) {
+    func dataSourcesRetrievedWith(statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error searching for DataSources - Invalid status code returned")
         XCTAssertTrue(dataSourceListData != nil, "Error searching for DataSources - Invalid resourceData returned")
         
         self.signalForAsyncOperation()
     }
     
-    func dataSourceIsReadyWith(status status: Bool) {
+    func dataSourceIsReadyWith(status: Bool) {
     }
     
     /**
      * DATASET CALLBACKS
      */
     
-    func dataSetCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
+    func dataSetCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSet - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating DataSet - Invalid resourceId returned")
         XCTAssertTrue(dataSetData != nil, "Error creating DataSet - Invalid resourceData returned")
@@ -316,19 +316,19 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func dataSetUpdatedWith(statusCode statusCode: HTTPStatusCode?) {
+    func dataSetUpdatedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_ACCEPTED, "Error updating DataSet")
         
         self.signalForAsyncOperation()
     }
     
-    func dataSetDeletedWith(statusCode statusCode: HTTPStatusCode?) {
+    func dataSetDeletedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting DataSet")
         
         self.signalForAsyncOperation()
     }
     
-    func dataSetRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
+    func dataSetRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving DataSet - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error retrieving DataSet - Invalid resourceId returned")
         XCTAssertTrue(dataSetData != nil, "Error retrieving DataSet - Invalid resourceData returned")
@@ -338,21 +338,21 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func dataSetsRetrievedWith(statusCode statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?) {
+    func dataSetsRetrievedWith(statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error searching for DataSets - Invalid status code returned")
         XCTAssertTrue(dataSetListData != nil, "Error searching for DataSets - Invalid resourceData returned")
         
         self.signalForAsyncOperation()
     }
     
-    func dataSetIsReadyWith(status status: Bool) {
+    func dataSetIsReadyWith(status: Bool) {
     }
     
     /**
      * MODEL CALLBACKS
      */
     
-    func modelCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
+    func modelCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Model - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating Model - Invalid resourceId returned")
         XCTAssertTrue(modelData != nil, "Error creating Model - Invalid resourceData returned")
@@ -362,19 +362,19 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func modelUpdatedWith(statusCode statusCode: HTTPStatusCode?) {
+    func modelUpdatedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Model")
         
         self.signalForAsyncOperation()
     }
     
-    func modelDeletedWith(statusCode statusCode: HTTPStatusCode?) {
+    func modelDeletedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Model")
         
         self.signalForAsyncOperation()
     }
     
-    func modelRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
+    func modelRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Model - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error retrieving Model - Invalid resourceId returned")
         XCTAssertTrue(modelData != nil, "Error retrieving Model - Invalid resourceData returned")
@@ -384,21 +384,21 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func modelsRetrievedWith(statusCode statusCode: HTTPStatusCode?, modelListData: NSDictionary?) {
+    func modelsRetrievedWith(statusCode: HTTPStatusCode?, modelListData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Models - Invalid status code returned")
         XCTAssertTrue(modelListData != nil, "Error searching for Models - Invalid resourceData returned")
         
         self.signalForAsyncOperation()
     }
     
-    func modelIsReadyWith(status status: Bool) {
+    func modelIsReadyWith(status: Bool) {
     }
     
     /**
      * PREDICTION CALLBACKS
      */
     
-    func predictionCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
+    func predictionCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Prediction - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating Prediction - Invalid resourceId returned")
         XCTAssertTrue(predictionData != nil, "Error creating Prediction - Invalid resourceData returned")
@@ -408,19 +408,19 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func predictionUpdatedWith(statusCode statusCode: HTTPStatusCode?) {
+    func predictionUpdatedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Prediction")
         
         self.signalForAsyncOperation()
     }
     
-    func predictionDeletedWith(statusCode statusCode: HTTPStatusCode?) {
+    func predictionDeletedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Prediction")
         
         self.signalForAsyncOperation()
     }
     
-    func predictionRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
+    func predictionRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Prediction - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error retrieving Prediction - Invalid resourceId returned")
         XCTAssertTrue(predictionData != nil, "Error retrieving Prediction - Invalid resourceData returned")
@@ -430,21 +430,21 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func predictionsRetrievedWith(statusCode statusCode: HTTPStatusCode?, predictionListData: NSDictionary?) {
+    func predictionsRetrievedWith(statusCode: HTTPStatusCode?, predictionListData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Predictions - Invalid status code returned")
         XCTAssertTrue(predictionListData != nil, "Error searching for Predictions - Invalid resourceData returned")
         
         self.signalForAsyncOperation()
     }
     
-    func predictionIsReadyWith(status status: Bool) {
+    func predictionIsReadyWith(status: Bool) {
     }
     
     /**
      * CLUSTER CALLBACKS
      */
     
-    func clusterCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+    func clusterCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating Cluster - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error creating Cluster - Invalid resourceId returned")
         XCTAssertTrue(clusterData != nil, "Error creating Cluster - Invalid resourceData returned")
@@ -454,19 +454,19 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func clusterUpdatedWith(statusCode statusCode: HTTPStatusCode?) {
+    func clusterUpdatedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_ACCEPTED, "Error updating Cluster")
         
         self.signalForAsyncOperation()
     }
     
-    func clusterDeletedWith(statusCode statusCode: HTTPStatusCode?) {
+    func clusterDeletedWith(statusCode: HTTPStatusCode?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_NO_CONTENT, "Error deleting Cluster")
         
         self.signalForAsyncOperation()
     }
     
-    func clusterRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
+    func clusterRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error retrieving Cluster - Invalid status code returned")
         XCTAssertTrue(resourceId != nil, "Error retrieving Cluster - Invalid resourceId returned")
         XCTAssertTrue(clusterData != nil, "Error retrieving Cluster - Invalid resourceData returned")
@@ -476,14 +476,14 @@ class ML4SwiftTestAsync : XCTestCase, ML4SwiftDelegate
         self.signalForAsyncOperation()
     }
     
-    func clustersRetrievedWith(statusCode statusCode: HTTPStatusCode?, clusterListData: NSDictionary?) {
+    func clustersRetrievedWith(statusCode: HTTPStatusCode?, clusterListData: NSDictionary?) {
         XCTAssertTrue(statusCode != nil && statusCode == HTTPStatusCode.HTTP_OK, "Error searching for Clusters - Invalid status code returned")
         XCTAssertTrue(clusterListData != nil, "Error searching for Clusters - Invalid resourceData returned")
         
         self.signalForAsyncOperation()
     }
     
-    func clusterIsReadyWith(status status: Bool) {
+    func clusterIsReadyWith(status: Bool) {
         
     }
 }

@@ -72,7 +72,7 @@ class DataManager
         return Singleton.instance
     }
     
-    func initializeWith(apiUsername apiUsername: String, apiKey: String, developmentMode: Bool) {
+    func initializeWith(apiUsername: String, apiKey: String, developmentMode: Bool) {
         self.accountData = BigMLAccountData(apiUsername: apiUsername, apiKey: apiKey, developmentMode: developmentMode)
         
         self.authToken = "?username=" + apiUsername + ";api_key=" + apiKey + ";"

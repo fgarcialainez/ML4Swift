@@ -42,37 +42,37 @@ class BaseResource
     /*!
      * Do generic HTTP request
      */
-    func doHttpRequestWith(url url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?) {
+    func doHttpRequestWith(url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?) {
         var statusCode: HTTPStatusCode?
         
-        var response: NSURLResponse?
+        var response: URLResponse?
         
-        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        request.HTTPMethod = method
+        let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
+        request.httpMethod = method
         request.addValue(contentType, forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = body?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        request.httpBody = body?.data(using: String.Encoding.utf8, allowLossyConversion: false)
         
-        let responseData: NSData?
+        let responseData: Data?
         do {
-            responseData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
+            responseData = try NSURLConnection.sendSynchronousRequest(request as URLRequest, returning: &response)
         } catch {
             responseData = nil
         }
         
-        if let httpResponse = response as? NSHTTPURLResponse {
+        if let httpResponse = response as? HTTPURLResponse {
             // Work with HTTP response
             statusCode = HTTPStatusCode(rawValue: httpResponse.statusCode)
         }
         
-        return (statusCode, responseData)
+        return (statusCode, responseData as NSData?)
     }
     
     func extractResourceIdFrom(data: NSDictionary?) -> String? {
         var resourceId: String?
         
         if let dataValue = data {
-            if let resourceIdValue = dataValue.objectForKey("resource") as? String {
-                resourceId = resourceIdValue.componentsSeparatedByString("/")[1] as String
+            if let resourceIdValue = dataValue.object(forKey: "resource") as? String {
+                resourceId = String(resourceIdValue.split(separator: "/")[1]) as String
             }
         }
         
@@ -85,67 +85,67 @@ class BaseResource
     
     // MARK: - Generic HTTP request methods
     
-    func createResourceWith(url url: String, body: String?) -> (HTTPStatusCode?, String?, NSDictionary?) {
+    func createResourceWith(url: String, body: String?) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "POST", body: body)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_CREATED {
-            resourceData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
+            resourceData = (try? JSONSerialization.jsonObject(with: result.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as? NSDictionary
             
-            resourceId = self.extractResourceIdFrom(resourceData)
+            resourceId = self.extractResourceIdFrom(data: resourceData)
         }
         
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func updateResourceWith(url url: String, body: String?) -> HTTPStatusCode? {
+    func updateResourceWith(url: String, body: String?) -> HTTPStatusCode? {
         let result = self.doHttpRequestWith(url: url, method: "PUT", body: body)
         
         return result.statusCode
     }
     
-    func deleteResourceWith(url url: String) -> HTTPStatusCode? {
+    func deleteResourceWith(url: String) -> HTTPStatusCode? {
         let result = self.doHttpRequestWith(url: url, method: "DELETE", body: nil)
         
         return result.statusCode
     }
     
-    func resourceWith(url url: String) -> (HTTPStatusCode?, String?, NSDictionary?) {
+    func resourceWith(url: String) -> (HTTPStatusCode?, String?, NSDictionary?) {
         var resourceId: String?
         var resourceData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_OK {
-            resourceData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
+            resourceData = (try? JSONSerialization.jsonObject(with: result.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as? NSDictionary
             
-            resourceId = self.extractResourceIdFrom(resourceData)
+            resourceId = self.extractResourceIdFrom(data: resourceData)
         }
         
         return (result.statusCode, resourceId, resourceData)
     }
     
-    func listResourcesWith(url url: String) -> (HTTPStatusCode?, NSDictionary?) {
+    func listResourcesWith(url: String) -> (HTTPStatusCode?, NSDictionary?) {
         var resourcesData: NSDictionary?
         
         let result = self.doHttpRequestWith(url: url, method: "GET", body: nil)
         
         if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_OK {
-            resourcesData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
+            resourcesData = (try? JSONSerialization.jsonObject(with: result.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as? NSDictionary
         }
         
         return (result.statusCode, resourcesData)
     }
     
-    func resourceIsReadyWith(result result: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)) -> Bool {
+    func resourceIsReadyWith(result: (statusCode: HTTPStatusCode?, resourceId: String?, resourceData: NSDictionary?)) -> Bool {
         var ready: Bool = false;
         
         if let statusCodeValue = result.statusCode {
             if statusCodeValue == HTTPStatusCode.HTTP_OK {
                 if let resourceDataValue = result.resourceData {
-                    let resourceStatus: AnyObject? = resourceDataValue.objectForKey("status")?.objectForKey("code")
+                    let resourceStatus: AnyObject? = (resourceDataValue.object(forKey: "status") as AnyObject).object(forKey: "code") as AnyObject?
                     
                     if let resourceStatusValue = resourceStatus?.integerValue {
                         ready = (resourceStatusValue == ResourceStatusCode.FINISHED.rawValue)

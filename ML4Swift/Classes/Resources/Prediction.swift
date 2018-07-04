@@ -48,7 +48,7 @@ class Prediction : BaseResource
     
     // MARK: - Public methods
     
-    func createPredictionWith(modelId modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
+    func createPredictionWith(modelId: String, name: String?, inputData: String?) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         var bodyString: String = "{\"model\":\"model/" + modelId + "\""
         
@@ -68,7 +68,7 @@ class Prediction : BaseResource
         return self.createResourceWith(url: urlString, body: bodyString)
     }
     
-    func updatePredictionNameWith(predictionId predictionId: String, name: String?) -> HTTPStatusCode? {
+    func updatePredictionNameWith(predictionId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -82,23 +82,23 @@ class Prediction : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deletePredictionWith(predictionId predictionId: String) -> HTTPStatusCode? {
+    func deletePredictionWith(predictionId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func predictionWith(predictionId predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
+    func predictionWith(predictionId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchPredictionsBy(name name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, predictionListData: NSDictionary?) {
+    func searchPredictionsBy(name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, predictionListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
-            urlString += "name=" + nameValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())! + ";"
+            urlString += "name=" + nameValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + ";"
         }
         
         if offset > 0 {
@@ -112,7 +112,7 @@ class Prediction : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func predictionIsReadyWith(predictionId predictionId: String) -> Bool {
+    func predictionIsReadyWith(predictionId: String) -> Bool {
         let urlString: String = self.resourceBaseURL + "/" + predictionId + DataManager.sharedInstance.authToken!
         let result = self.resourceWith(url: urlString)
         

@@ -48,10 +48,10 @@ class DataSource : BaseResource
     
     // MARK: - Public methods
     
-    func createDataSourceWith(name name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
+    func createDataSourceWith(name: String, filePath: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         var returnData: (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)!
         
-        if let contentsOfFileValue = try? String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding) {
+        if let contentsOfFileValue = try? String(contentsOfFile: filePath, encoding: String.Encoding.utf8) {
             let urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
             
             let boundary = "---------------------------14737809831466499882746641449"
@@ -70,9 +70,9 @@ class DataSource : BaseResource
             let result = self.doHttpRequestWith(url: urlString, method: "POST", body: postbody, contentType: contentType)
             
             if result.statusCode != nil && result.data != nil && result.statusCode == HTTPStatusCode.HTTP_CREATED {
-                resourceData = (try? NSJSONSerialization.JSONObjectWithData(result.data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
+                resourceData = (try? JSONSerialization.jsonObject(with: result.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as? NSDictionary
                 
-                resourceId = self.extractResourceIdFrom(resourceData)
+                resourceId = self.extractResourceIdFrom(data: resourceData)
             }
             
             returnData = (result.statusCode, resourceId, resourceData)
@@ -84,7 +84,7 @@ class DataSource : BaseResource
         return returnData
     }
     
-    func updateDataSourceNameWith(dataSourceId dataSourceId: String, name: String?) -> HTTPStatusCode? {
+    func updateDataSourceNameWith(dataSourceId: String, name: String?) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         var bodyString: String!
         
@@ -98,23 +98,23 @@ class DataSource : BaseResource
         return self.updateResourceWith(url: urlString, body: bodyString)
     }
     
-    func deleteDataSourceWith(dataSourceId dataSourceId: String) -> HTTPStatusCode? {
+    func deleteDataSourceWith(dataSourceId: String) -> HTTPStatusCode? {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         
         return self.deleteResourceWith(url: urlString)
     }
     
-    func dataSourceWith(dataSourceId dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
+    func dataSourceWith(dataSourceId: String) -> (statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?) {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         
         return self.resourceWith(url: urlString)
     }
     
-    func searchDataSourcesBy(name name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?) {
+    func searchDataSourcesBy(name: String?, offset: Int, limit: Int) -> (statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?) {
         var urlString: String = self.resourceBaseURL + DataManager.sharedInstance.authToken!
         
         if let nameValue = name {
-            urlString += "name=" + nameValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())! + ";"
+            urlString += "name=" + nameValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + ";"
         }
         
         if offset > 0 {
@@ -128,7 +128,7 @@ class DataSource : BaseResource
         return self.listResourcesWith(url: urlString)
     }
     
-    func dataSourceIsReadyWith(dataSourceId dataSourceId: String) -> Bool {
+    func dataSourceIsReadyWith(dataSourceId: String) -> Bool {
         let urlString: String = self.resourceBaseURL + "/" + dataSourceId + DataManager.sharedInstance.authToken!
         let result = self.resourceWith(url: urlString)
         

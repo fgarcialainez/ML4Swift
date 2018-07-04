@@ -29,17 +29,17 @@ public protocol ML4SwiftDelegate : class
     
     // MARK: - DataSources
     
-    func dataSourceCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
+    func dataSourceCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
     
-    func dataSourceUpdatedWith(statusCode statusCode: HTTPStatusCode?)
+    func dataSourceUpdatedWith(statusCode: HTTPStatusCode?)
     
-    func dataSourceDeletedWith(statusCode statusCode: HTTPStatusCode?)
+    func dataSourceDeletedWith(statusCode: HTTPStatusCode?)
     
-    func dataSourceRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
+    func dataSourceRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSourceData: NSDictionary?)
     
-    func dataSourcesRetrievedWith(statusCode statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?)
+    func dataSourcesRetrievedWith(statusCode: HTTPStatusCode?, dataSourceListData: NSDictionary?)
     
-    func dataSourceIsReadyWith(status status: Bool)
+    func dataSourceIsReadyWith(status: Bool)
     
     //******************************************************************************************
     //************************************** DATASETS ******************************************
@@ -47,17 +47,17 @@ public protocol ML4SwiftDelegate : class
     
     // MARK: - DataSets
     
-    func dataSetCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
+    func dataSetCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
     
-    func dataSetUpdatedWith(statusCode statusCode: HTTPStatusCode?)
+    func dataSetUpdatedWith(statusCode: HTTPStatusCode?)
     
-    func dataSetDeletedWith(statusCode statusCode: HTTPStatusCode?)
+    func dataSetDeletedWith(statusCode: HTTPStatusCode?)
     
-    func dataSetRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
+    func dataSetRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, dataSetData: NSDictionary?)
     
-    func dataSetsRetrievedWith(statusCode statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?)
+    func dataSetsRetrievedWith(statusCode: HTTPStatusCode?, dataSetListData: NSDictionary?)
     
-    func dataSetIsReadyWith(status status: Bool)
+    func dataSetIsReadyWith(status: Bool)
     
     //******************************************************************************************
     //*************************************** MODELS *******************************************
@@ -65,17 +65,17 @@ public protocol ML4SwiftDelegate : class
     
     // MARK: - Models
     
-    func modelCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
+    func modelCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
     
-    func modelUpdatedWith(statusCode statusCode: HTTPStatusCode?)
+    func modelUpdatedWith(statusCode: HTTPStatusCode?)
     
-    func modelDeletedWith(statusCode statusCode: HTTPStatusCode?)
+    func modelDeletedWith(statusCode: HTTPStatusCode?)
     
-    func modelRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
+    func modelRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, modelData: NSDictionary?)
     
-    func modelsRetrievedWith(statusCode statusCode: HTTPStatusCode?, modelListData: NSDictionary?)
+    func modelsRetrievedWith(statusCode: HTTPStatusCode?, modelListData: NSDictionary?)
     
-    func modelIsReadyWith(status status: Bool)
+    func modelIsReadyWith(status: Bool)
     
     //******************************************************************************************
     //************************************* PREDICTIONS ****************************************
@@ -83,17 +83,17 @@ public protocol ML4SwiftDelegate : class
     
     // MARK: - Predictions
     
-    func predictionCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
+    func predictionCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
     
-    func predictionUpdatedWith(statusCode statusCode: HTTPStatusCode?)
+    func predictionUpdatedWith(statusCode: HTTPStatusCode?)
     
-    func predictionDeletedWith(statusCode statusCode: HTTPStatusCode?)
+    func predictionDeletedWith(statusCode: HTTPStatusCode?)
     
-    func predictionRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
+    func predictionRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, predictionData: NSDictionary?)
     
-    func predictionsRetrievedWith(statusCode statusCode: HTTPStatusCode?, predictionListData: NSDictionary?)
+    func predictionsRetrievedWith(statusCode: HTTPStatusCode?, predictionListData: NSDictionary?)
     
-    func predictionIsReadyWith(status status: Bool)
+    func predictionIsReadyWith(status: Bool)
     
     //******************************************************************************************
     //************************************** CLUSTERS ******************************************
@@ -101,15 +101,15 @@ public protocol ML4SwiftDelegate : class
     
     // MARK: - Clusters
     
-    func clusterCreatedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
+    func clusterCreatedWith(statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
     
-    func clusterUpdatedWith(statusCode statusCode: HTTPStatusCode?)
+    func clusterUpdatedWith(statusCode: HTTPStatusCode?)
     
-    func clusterDeletedWith(statusCode statusCode: HTTPStatusCode?)
+    func clusterDeletedWith(statusCode: HTTPStatusCode?)
     
-    func clusterRetrievedWith(statusCode statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
+    func clusterRetrievedWith(statusCode: HTTPStatusCode?, resourceId: String?, clusterData: NSDictionary?)
     
-    func clustersRetrievedWith(statusCode statusCode: HTTPStatusCode?, clusterListData: NSDictionary?)
+    func clustersRetrievedWith(statusCode: HTTPStatusCode?, clusterListData: NSDictionary?)
     
-    func clusterIsReadyWith(status status: Bool)
+    func clusterIsReadyWith(status: Bool)
 }
