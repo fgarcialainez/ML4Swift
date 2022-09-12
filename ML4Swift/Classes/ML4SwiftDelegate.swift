@@ -21,7 +21,7 @@
 
 import Foundation
 
-public protocol ML4SwiftDelegate : class
+public protocol ML4SwiftDelegate : AnyObject
 {
     //******************************************************************************************
     //************************************ DATASOURCES *****************************************

@@ -43,26 +43,30 @@ class BaseResource
      * Do generic HTTP request
      */
     func doHttpRequestWith(url: String, method: String, body: String?, contentType: String = "application/json") -> (statusCode: HTTPStatusCode?, data: NSData?) {
+        var responseData: Data?
         var statusCode: HTTPStatusCode?
         
-        var response: URLResponse?
+        let semaphore = DispatchSemaphore(value: 0)
         
         let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
         request.httpMethod = method
         request.addValue(contentType, forHTTPHeaderField: "Content-Type")
         request.httpBody = body?.data(using: String.Encoding.utf8, allowLossyConversion: false)
         
-        let responseData: Data?
-        do {
-            responseData = try NSURLConnection.sendSynchronousRequest(request as URLRequest, returning: &response)
-        } catch {
-            responseData = nil
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) -> Void in
+            if let httpResponse = response as? HTTPURLResponse {
+                // Work with HTTP response
+                responseData = data
+                statusCode = HTTPStatusCode(rawValue: httpResponse.statusCode)
+            }
+            
+            // Release the semaphore
+            semaphore.signal()
         }
+        task.resume();
         
-        if let httpResponse = response as? HTTPURLResponse {
-            // Work with HTTP response
-            statusCode = HTTPStatusCode(rawValue: httpResponse.statusCode)
-        }
+        // Wait for async operation to complete
+        semaphore.wait();
         
         return (statusCode, responseData as NSData?)
     }

@@ -58,7 +58,7 @@ class ML4SwiftTestSync : XCTestCase
         //******************************************************************************************
         
         // Create DataSource from iris.csv
-        let path = NSBundle(forClass: ML4SwiftTestSync.self).pathForResource("iris", ofType: "csv")
+        let path = Bundle(for: ML4SwiftTestSync.self).path(forResource: "iris", ofType: "csv")
         let resultDataSource = self.library.createDataSourceWith(name: "My DataSource", filePath: path!)
         
         XCTAssertTrue(resultDataSource.statusCode != nil && resultDataSource.statusCode == HTTPStatusCode.HTTP_CREATED, "Error creating DataSource - Invalid status code returned")
